@@ -1,53 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, StyleSheet, Image } from "react-native";
-import { auth } from "../../firebase";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { Button, Input, Layout } from "@ui-kitten/components";
+import React, { useEffect, useState } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Image } from 'react-native';
+import { auth } from '../../firebase';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { Button, Input, Layout } from '@ui-kitten/components';
+import Toast from 'react-native-root-toast';
 
 const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.replace("StackHome");
+        navigation.replace('StackHome');
       }
     });
     return unsubscribe;
   }, []);
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+
+  navigateSignup = () => {
+    navigation.navigate('Sign Up');
+  };
+
+  handleLogin = () => {
+    signInWithEmailAndPassword(auth, email.trim(), password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("Registered:", user.email);
+        console.log('Logged in with:', user.email);
       })
       .catch((error) => {
         console.log(error.message);
+        Toast.show('Incorrect email/password. Try again.', {
+          duration: Toast.durations.SHORT,
+        });
       });
   };
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Logged in with:", user.email);
-      })
-      .catch((error) => {
-        console.log("Login error");
-      });
-  };
   return (
     <Layout style={styles.container}>
       <KeyboardAvoidingView>
         <Image
           style={styles.logo}
-          source={require("../../assets/peachcat.png")}
-        ></Image>
+          source={require('../../assets/peachcat.png')}
+        />
         <Input
           style={styles.input}
           placeholder="Email"
@@ -64,7 +59,7 @@ const Login = ({ navigation }) => {
         <Button style={styles.button} onPress={handleLogin}>
           Login
         </Button>
-        <Button style={styles.button} onPress={handleSignUp}>
+        <Button style={styles.button} onPress={navigateSignup}>
           Register
         </Button>
       </KeyboardAvoidingView>
@@ -77,8 +72,8 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
     width: 250,
@@ -88,7 +83,7 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   button: {
-    alignItems: "center",
+    alignItems: 'center',
     margin: 4,
   },
 });
