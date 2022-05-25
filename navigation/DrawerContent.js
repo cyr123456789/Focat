@@ -4,11 +4,13 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { Text, Button, Layout, Avatar, Divider } from '@ui-kitten/components';
-import { signOut } from 'firebase/auth';
+import { Text, Layout, Avatar, Divider } from '@ui-kitten/components';
 import { auth } from '../firebase/index';
+import LoginLogoutButton from '../components/login_logout_button';
 
 const DrawerContent = (props) => {
+  let username = auth.currentUser?.email ?? 'Guest';
+
   return (
     <Layout style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -21,7 +23,7 @@ const DrawerContent = (props) => {
               source={require('../assets/peachcat.png')}
               size="giant"
             ></Avatar>
-            <Text style={styles.username}>Username Here</Text>
+            <Text style={styles.username}>{username}</Text>
           </TouchableOpacity>
         </Layout>
         <Divider></Divider>
@@ -31,21 +33,10 @@ const DrawerContent = (props) => {
       </DrawerContentScrollView>
       <Divider></Divider>
       <Layout style={styles.bottom}>
-        <Button
+        <LoginLogoutButton
           style={styles.button}
-          onPress={() =>
-            signOut(auth)
-              .then(() => {
-                props.navigation.replace('Login');
-                console.log('successful');
-              })
-              .catch((error) => {
-                console.log(error.message);
-              })
-          }
-        >
-          Log out
-        </Button>
+          navigation={props.navigation}
+        ></LoginLogoutButton>
       </Layout>
     </Layout>
   );
@@ -74,5 +65,8 @@ const styles = StyleSheet.create({
   },
   bottom: {
     padding: 20,
+  },
+  button: {
+    width: '80%',
   },
 });
