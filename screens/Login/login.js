@@ -18,11 +18,11 @@ const Login = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
-  navigateSignup = () => {
+  const navigateSignup = () => {
     navigation.navigate('Sign Up');
   };
 
-  handleLogin = () => {
+  const handleLogin = () => {
     signInWithEmailAndPassword(auth, email.trim(), password)
       .then((userCredential) => {
         const user = userCredential.user;
