@@ -5,7 +5,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
-import { auth } from '../../firebase';
+import { auth, firestore } from '../../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Toast from 'react-native-root-toast';
 import { Button, Input, Layout, Icon } from '@ui-kitten/components';
@@ -56,6 +57,9 @@ const Signup = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log('Registered:', user.email);
+          setDoc(doc(firestore, 'users', user.uid), {
+            username: username.trim(),
+          });
         })
         .catch((error) => {
           console.log(error.message);
@@ -66,6 +70,9 @@ const Signup = () => {
     }
   };
 
+  /**
+   * Icon for user to toggle between show and hide password.
+   */
   const renderEyeIcon = (props) => (
     <TouchableWithoutFeedback
       onPress={() => setSecureTextEntry(!secureTextEntry)}
@@ -82,6 +89,7 @@ const Signup = () => {
           style={styles.input}
           placeholder="Username"
           value={username}
+          maxLength={15}
           onChangeText={(text) => setUsername(text)}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
         />
