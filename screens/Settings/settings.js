@@ -20,7 +20,7 @@ const Settings = ({ navigation }) => {
           signOut(auth)
             .then(() => {
               navigation.replace('Login');
-              console.log('successful');
+              console.log('Successful Logout');
             })
             .catch((error) => {
               console.log(error.message);

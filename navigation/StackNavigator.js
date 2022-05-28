@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GettingStarted from '../screens/Login/getting_started';
 import Login from '../screens/Login/login';
+import Signup from '../screens/Signup/signup';
 import DrawerNavigator from './DrawerNavigator';
 import isFirstLaunch from '../utils/checkFirstLaunch';
 
@@ -32,6 +33,12 @@ const StackNavigator = () => {
         />
         <firstLaunchStack.Screen
           options={{ headerShown: false }}
+          name="Sign Up"
+          component={Signup}
+        ></firstLaunchStack.Screen>
+
+        <firstLaunchStack.Screen
+          options={{ headerShown: false }}
           name="StackHome"
           component={DrawerNavigator}
         />
@@ -52,6 +59,11 @@ const StackNavigator = () => {
           name="StackHome"
           component={DrawerNavigator}
         />
+        <nextLaunchStack.Screen
+          options={{ headerShown: false }}
+          name="Sign Up"
+          component={Signup}
+        ></nextLaunchStack.Screen>
       </nextLaunchStack.Navigator>
     );
   };
