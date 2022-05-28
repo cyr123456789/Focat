@@ -56,9 +56,12 @@ const Signup = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log('Registered:', user.email);
           setDoc(doc(firestore, 'users', user.uid), {
             username: username.trim(),
+          });
+          console.log('Registered:', user.email);
+          Toast.show(`Successful sign up. Welcome ${username}!`, {
+            duration: Toast.durations.SHORT,
           });
         })
         .catch((error) => {
@@ -134,14 +137,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    margin: 4,
+    marginBottom: 64,
+    fontSize: 24,
+    textAlign: 'center',
+    width: 300,
   },
   input: {
-    margin: 4,
-    width: 250,
+    marginVertical: 10,
   },
   button: {
     alignItems: 'center',
-    margin: 4,
+    marginVertical: 10,
   },
 });
