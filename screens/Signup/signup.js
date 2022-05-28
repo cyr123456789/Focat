@@ -1,15 +1,12 @@
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
 import React, { useState } from 'react';
 import { auth, firestore } from '../../firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Toast from 'react-native-root-toast';
 import { Button, Input, Layout, Icon } from '@ui-kitten/components';
+import EmailTextInput from '../../components/email_textinput';
+import PasswordTextInput from '../../components/password_textinput';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -73,17 +70,6 @@ const Signup = () => {
     }
   };
 
-  /**
-   * Icon for user to toggle between show and hide password.
-   */
-  const renderEyeIcon = (props) => (
-    <TouchableWithoutFeedback
-      onPress={() => setSecureTextEntry(!secureTextEntry)}
-    >
-      <Icon name={secureTextEntry ? 'eye-off' : 'eye'} {...props} />
-    </TouchableWithoutFeedback>
-  );
-
   return (
     <Layout style={styles.container}>
       <KeyboardAvoidingView>
@@ -96,21 +82,12 @@ const Signup = () => {
           onChangeText={(text) => setUsername(text)}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
         />
-        <Input
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          accessoryLeft={(props) => <Icon name="email-outline" {...props} />}
-        />
-        <Input
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+        <EmailTextInput email={email} setEmail={setEmail} />
+        <PasswordTextInput
+          password={password}
+          setPassword={setPassword}
           secureTextEntry={secureTextEntry}
-          accessoryRight={renderEyeIcon}
-          accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
+          setSecureTextEntry={setSecureTextEntry}
         />
         <Input
           style={styles.input}

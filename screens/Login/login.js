@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Image } from 'react-native';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { Button, Input, Layout } from '@ui-kitten/components';
+import { Button, Layout } from '@ui-kitten/components';
 import Toast from 'react-native-root-toast';
+import EmailTextInput from '../../components/email_textinput';
+import PasswordTextInput from '../../components/password_textinput';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -43,24 +46,18 @@ const Login = ({ navigation }) => {
           style={styles.logo}
           source={require('../../assets/peachcat.png')}
         />
-        <Input
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Input
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry
+        <EmailTextInput email={email} setEmail={setEmail} />
+        <PasswordTextInput
+          password={password}
+          setPassword={setPassword}
+          secureTextEntry={secureTextEntry}
+          setSecureTextEntry={setSecureTextEntry}
         />
         <Button style={styles.button} onPress={handleLogin}>
           Login
         </Button>
         <Button style={styles.button} onPress={navigateSignup}>
-          Register
+          Sign Up
         </Button>
       </KeyboardAvoidingView>
     </Layout>
@@ -76,14 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 250,
-    height: 250,
-  },
-  input: {
-    margin: 4,
+    width: 300,
+    height: 300,
   },
   button: {
-    alignItems: 'center',
-    margin: 4,
+    marginVertical: 10,
   },
 });
