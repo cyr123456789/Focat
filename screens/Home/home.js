@@ -1,22 +1,20 @@
-import { StyleSheet } from "react-native";
-import React from "react";
-import { auth } from "../../firebase";
-import { Layout, Text } from "@ui-kitten/components";
+import React, { useState } from 'react';
+import { ViewPager } from '@ui-kitten/components';
+import Timer from './timer';
+import Stopwatch from './stopwatch';
 
 const Home = ({}) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
-    <Layout style={styles.container}>
-      <Text>Email: {auth.currentUser?.email} </Text>
-    </Layout>
+    <ViewPager
+      selectedIndex={selectedIndex}
+      onSelect={(index) => setSelectedIndex(index)}
+    >
+      <Timer />
+      <Stopwatch />
+    </ViewPager>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
