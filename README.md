@@ -129,7 +129,7 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 ![alt text](../assets/implementation/get_started.png?raw=true)
 
-A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether or not to display this screen.
+A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether to display this screen.
 
 ### Login
 
@@ -181,7 +181,7 @@ A navigation drawer for users to navigate to different screens of Focat. Functio
 ### Features by Milestone 2 (27 Jun):
 
 3. Friend system including friends list
-4. Joining others sessions via unique code or unique URL
+4. Joining other sessions via unique code or unique URL
 
 -   Join a friend's session halfway
 -   Join a friend's room instead of waiting for invite code/link
@@ -201,13 +201,13 @@ A navigation drawer for users to navigate to different screens of Focat. Functio
 8. Achievements
 9. Store
 10. Push notification reminders to clock in focus sessions and when friends begin sessions
-11. Profile page to interact to user items
+11. Profile page to interact with user items
 
 ## Project Log
 
 | S/N |                           Task                            |        Date         | Yun Rong (hrs) | Venus (hrs) |
 | :-: | :-------------------------------------------------------: | :-----------------: | :------------: | :---------: |
-|  1  |              Team meetings, intial planning               | 09/05/22 - 13/05/22 |       7        |      7      |
+|  1  |              Team meetings, initial planning              | 09/05/22 - 13/05/22 |       7        |      7      |
 |  2  |          Proposal, poster and video for Liftoff           | 09/05/22 - 13/05/22 |       6        |      6      |
 |  3  |               Meeting with Orbital adviser                |      09/05/22       |       1        |      1      |
 |  4  |             Prepare mentor matching materials             |      13/05/22       |       3        |      3      |
