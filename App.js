@@ -7,14 +7,19 @@ import 'react-native-gesture-handler';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+
 const App = () => {
   return (
-    <RootSiblingParent>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <StackNavigator />
-      </ApplicationProvider>
-    </RootSiblingParent>
+    <Provider store={store}>
+      <RootSiblingParent>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <StackNavigator />
+        </ApplicationProvider>
+      </RootSiblingParent>
+    </Provider>
   );
 };
 

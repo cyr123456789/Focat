@@ -12,9 +12,11 @@
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
     "@miblanchard/react-native-slider": "^2.1.0",
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
+    "@reduxjs/toolkit": "^1.8.2",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
     "dotenv": "^16.0.1",
@@ -35,7 +37,7 @@
     "react-native-screens": "~3.11.1",
     "react-native-svg": "12.3.0",
     "react-native-web": "0.17.7",
-    "@react-native-async-storage/async-storage": "~1.17.3"
+    "react-redux": "^8.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

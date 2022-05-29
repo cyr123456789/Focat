@@ -7,9 +7,17 @@ import Toast from 'react-native-root-toast';
 import { Button, Input, Layout, Icon } from '@ui-kitten/components';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeUsername } from '../../store/username';
 
 const Signup = () => {
-  const [username, setUsername] = useState('');
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.username.username);
+  const [input, setInput] = useState('');
+  const setUsername = () => {
+    dispatch(changeUsername({ username: input }));
+  };
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,14 +58,15 @@ const Signup = () => {
         }
       );
     } else {
+      setUsername();
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           setDoc(doc(firestore, 'users', user.uid), {
-            username: username.trim(),
+            username: input.trim(),
           });
           console.log('Registered:', user.email);
-          Toast.show(`Successful sign up. Welcome ${username}!`, {
+          Toast.show(`Successful sign up. Welcome ${input}!`, {
             duration: Toast.durations.SHORT,
           });
         })
@@ -77,9 +86,9 @@ const Signup = () => {
         <Input
           style={styles.input}
           placeholder="Username"
-          value={username}
+          value={input}
           maxLength={15}
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={setInput}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
         />
         <EmailTextInput email={email} setEmail={setEmail} />
@@ -93,7 +102,7 @@ const Signup = () => {
           style={styles.input}
           placeholder="Re-enter Password"
           value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={setConfirmPassword}
           secureTextEntry={secureTextEntry}
           accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
         />
