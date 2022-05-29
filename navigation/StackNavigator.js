@@ -32,7 +32,6 @@ const StackNavigator = () => {
           component={Login}
         />
         <firstLaunchStack.Screen
-          options={{ headerShown: false }}
           name="Sign Up"
           component={Signup}
         ></firstLaunchStack.Screen>
