@@ -60,7 +60,6 @@ const StackNavigator = () => {
           component={DrawerNavigator}
         />
         <nextLaunchStack.Screen
-          options={{ headerShown: false }}
           name="Sign Up"
           component={Signup}
         ></nextLaunchStack.Screen>
