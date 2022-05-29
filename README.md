@@ -108,17 +108,57 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 ### Tech Stack
 
-![alt text](../assets/tech_stack.png?raw=true)
+![alt text](../assets/design/tech_stack.png?raw=true)
 
 ### Program Flowchart
 
-![alt text](../assets/program_flowchart.png?raw=true)
+![alt text](../assets/design/program_flowchart.png?raw=true)
 
 ### Database Schema
 
-![alt text](../assets/database_schema.png?raw=true)
+![alt text](../assets/design/database_schema.png?raw=true)
+
+### Wireframe
+
+![alt text](../assets/design/wireframe1.png?raw=true)
+![alt text](../assets/design/wireframe2.png?raw=true)
 
 ## Current Implementation (Milestone 1)
+
+### Getting Started
+
+![alt text](../assets/implementation/get_started.png?raw=true)
+A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether or not to display this screen.
+
+### Login
+
+![alt text](../assets/implementation/login.png?raw=true)
+A login screen implemented with Firebase Authentication. Error messages upon logging in are not yet implemented but will be in subsequent milestones.
+
+### Signup
+
+![alt text](../assets/implementation/signup.png?raw=true)
+
+### Countdown Timer
+
+![alt text](../assets/implementation/countdown_timer_solo.png?raw=true)
+![alt text](../assets/implementation/countdown_timer_group.png?raw=true)
+A simple proof-of-concept countdown timer which only works locally. Simple UI for group countdowns have been implemented but actual group countdown functionality will be implemented in subsequent milestones.
+
+### Stopwatch
+
+![alt text](../assets/implementation/stopwatch.png?raw=true)
+A stopwatch alongside the countdown timer. Swipe left on the home screen to reach this page. Functionality is complete but the UI will be improved upon in subsequent milestones.
+
+### Settings
+
+![alt text](../assets/implementation/settings.png?raw=true)
+A settings screen for users to configure their account and application settings. No functionality has been added yet but will be in subsequent milestones.
+
+### Navigation Drawer
+
+![alt text](../assets/implementation/navigation_drawer.png?raw=true)
+A navigation drawer for users to navigate to different screens of Focat. Functionality is complete. In subsequent milestones, the user's username will be displayed at the top of the drawer instead of the user's email.
 
 ## Projected Timeline
 
@@ -159,5 +199,20 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 ## Project Log
 
-| S/N | Task | Date | Yun Rong (hrs) | Venus (hrs) |
-| --- | ---- | ---- | -------------- | ----------- |
+| S/N |                           Task                            |        Date         | Yun Rong (hrs) | Venus (hrs) |
+| :-: | :-------------------------------------------------------: | :-----------------: | :------------: | :---------: |
+|  1  |              Team meetings, intial planning               | 09/05/22 - 13/05/22 |       7        |      7      |
+|  2  |          Proposal, poster and video for Liftoff           | 09/05/22 - 13/05/22 |       6        |      6      |
+|  3  |               Meeting with Orbital adviser                |      09/05/22       |       1        |      1      |
+|  4  |     Self-learn new technologies and attend workshops      | 14/05/22 - 30/05/22 |       20       |     20      |
+|  5  |   Design tech stack, program flowchart, database schema   | 17/05/22 - 20/05/22 |       5        |      5      |
+|  6  |                  Create Figma Wireframe                   | 17/05/22 - 20/05/22 |       1        |     15      |
+|  7  | Create login screen, setup Firebase and setup Github repo | 17/05/22 - 20/05/22 |       5        |      1      |
+|  8  |               Create getting started screen               | 22/05/22 - 28/05/22 |       3        |      0      |
+|  9  |   Create signup screen and link it to Firebase database   | 23/05/22 - 28/05/22 |       0        |      8      |
+| 10  |           Create countdown timer and stopwatch            | 23/05/22 - 28/05/22 |       5        |      0      |
+| 11  |                Create UI for settings page                | 25/05/22 - 28/05/22 |       2        |      0      |
+| 12  |    Setup navigation stack and custom navigation drawer    | 25/05/22 - 28/05/22 |       3        |      0      |
+| 13  |                       Update READme                       |      29/05/22       |       3        |      0      |
+| 14  |         Create .apk for users to test application         |      29/05/22       |       3        |      1      |
+|     |                                                           |     Total hours     |       64       |     64      |
