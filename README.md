@@ -16,7 +16,7 @@ Whenever you need to sit down and focus on your studies, you can start a focus s
 
 Peer pressure is a powerful influence and by using Focat, users create positive feedback loops within their circle of friends by encouraging one another to sit down and focus together. With features like focus time hiscores and push notifications whenever a friend starts a focus session, users will be positively peer pressured into starting a focus session themselves or joining their friends to do so.
 
-## Aim
+## Project Scope
 
 We hope to replicate most of the basic features of a similar app called Forest and further improve upon it by adding features that we wanted to have when we were using the Forest app ourselves.
 
