@@ -128,11 +128,13 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 ### Getting Started
 
 ![alt text](../assets/implementation/get_started.png?raw=true)
+
 A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether or not to display this screen.
 
 ### Login
 
 ![alt text](../assets/implementation/login.png?raw=true)
+
 A login screen implemented with Firebase Authentication. Error messages upon logging in are not yet implemented but will be in subsequent milestones.
 
 ### Signup
@@ -143,21 +145,25 @@ A login screen implemented with Firebase Authentication. Error messages upon log
 
 ![alt text](../assets/implementation/countdown_timer_solo.png?raw=true)
 ![alt text](../assets/implementation/countdown_timer_group.png?raw=true)
+
 A simple proof-of-concept countdown timer which only works locally. Simple UI for group countdowns have been implemented but actual group countdown functionality will be implemented in subsequent milestones.
 
 ### Stopwatch
 
 ![alt text](../assets/implementation/stopwatch.png?raw=true)
+
 A stopwatch alongside the countdown timer. Swipe left on the home screen to reach this page. Functionality is complete but the UI will be improved upon in subsequent milestones.
 
 ### Settings
 
 ![alt text](../assets/implementation/settings.png?raw=true)
+
 A settings screen for users to configure their account and application settings. No functionality has been added yet but will be in subsequent milestones.
 
 ### Navigation Drawer
 
 ![alt text](../assets/implementation/navigation_drawer.png?raw=true)
+
 A navigation drawer for users to navigate to different screens of Focat. Functionality is complete. In subsequent milestones, the user's username will be displayed at the top of the drawer instead of the user's email.
 
 ## Projected Timeline
