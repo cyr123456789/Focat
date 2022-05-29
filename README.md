@@ -221,5 +221,5 @@ A navigation drawer for users to navigate to different screens of Focat. Functio
 | 12  |                Create UI for settings page                | 25/05/22 - 28/05/22 |       2        |      0      |
 | 13  |    Setup navigation stack and custom navigation drawer    | 25/05/22 - 28/05/22 |       3        |      0      |
 | 14  |                       Update READme                       |      29/05/22       |       3        |      0      |
-| 15  |         Create .apk for users to test application         |      29/05/22       |       3        |      1      |
-|     |                                                           |     Total hours     |       67       |     67      |
+| 15  |         Create .apk for users to test application         |      29/05/22       |       0        |      1      |
+|     |                                                           |     Total hours     |       64       |     67      |
