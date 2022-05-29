@@ -22,71 +22,71 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 1. Login Page
 
--   Users will be able to login.
--   Users will be able to register for an account.
--   Users will be able to reset their password.
+- Users will be able to login.
+- Users will be able to register for an account.
+- Users will be able to reset their password.
 
 2. Home Page
 
--   There is a timer and stopwatch for users to set the duration of their next focus session.
--   Before a session begins, it can be tagged with a task/label for dashboard statistics.
--   Users can see the list of people in the room waiting for the session to start.
--   Users can communicate with users within the same room but only before the session begins. There is no communication feature during the session.
--   There is a start button for the host to start the session.
--   If the host leaves the room, the host will be automatically transferred to someone else in the room.
--   Each session can be set to play simple background music/sounds during the session.
--   Friends of the user will be notified through push notifications when a friend begins/is about to begin a session.
--   Friends of the user can join the session without the session code. There will be a button for them to join the friend’s session if there is an active session.
--   For the first session of each day, users will be given additional rewards.
+- There is a timer and stopwatch for users to set the duration of their next focus session.
+- Before a session begins, it can be tagged with a task/label for dashboard statistics.
+- Users can see the list of people in the room waiting for the session to start.
+- Users can communicate with users within the same room but only before the session begins. There is no communication feature during the session.
+- There is a start button for the host to start the session.
+- If the host leaves the room, the host will be automatically transferred to someone else in the room.
+- Each session can be set to play simple background music/sounds during the session.
+- Friends of the user will be notified through push notifications when a friend begins/is about to begin a session.
+- Friends of the user can join the session without the session code. There will be a button for them to join the friend’s session if there is an active session.
+- For the first session of each day, users will be given additional rewards.
 
 3. To-do list
 
--   There is a to-do list for users to keep track of the tasks to be completed.
--   The to-dos listed here can be selected to be tracked for completion in the home page before a session starts.
+- There is a to-do list for users to keep track of the tasks to be completed.
+- The to-dos listed here can be selected to be tracked for completion in the home page before a session starts.
 
 4. Dashboard
 
--   Users can see their dashboard on daily, weekly, monthly, or yearly focus time statistics.
--   They can see their focus time distribution based on the tags they chose before the start of each session.
+- Users can see their dashboard on daily, weekly, monthly, or yearly focus time statistics.
+- They can see their focus time distribution based on the tags they chose before the start of each session.
 
 5. Profile
 
--   Users will see their cats here and be able to customise their own cats.
+- Users will see their cats here and be able to customise their own cats.
 
 6. Timeline
 
--   Users can see their own progress and achievements.
--   Users can see their friend's progress and achievements.
+- Users can see their own progress and achievements.
+- Users can see their friend's progress and achievements.
 
 7. Friends
 
--   Users can see their lists of friends.
--   Users can add/remove friends in their friends list.
--   Users can see basic statistics of their friends such as total hours focused.
--   Users can click on their friends to see their cats and more detailed statistics.
--   Users will be able to see which of their friends are currently in a session and will be able to join their friend's session directly from this page.
+- Users can see their lists of friends.
+- Users can add/remove friends in their friends list.
+- Users can see basic statistics of their friends such as total hours focused.
+- Users can click on their friends to see their cats and more detailed statistics.
+- Users will be able to see which of their friends are currently in a session and will be able to join their friend's session directly from this page.
 
 8. Achievements
 
--   Users can see a list of achievements that they can complete to get rewards.
--   Examples of achievements include:
-    -   Time spent focusing
-    -   Number of days they checked in on their cats
-    -   Number of friends they have
-    -   Number of sessions completed as a group
+- Users can see a list of achievements that they can complete to get rewards.
+- Examples of achievements include:
+  - Time spent focusing
+  - Number of days they checked in on their cats
+  - Number of friends they have
+  - Number of sessions completed as a group
 
 9. Store
 
--   Users can purchase items from the store.
--   Examples of items include:
-    -   Clothes and accessories for the cats
-    -   Cat breeds (application themes)
+- Users can purchase items from the store.
+- Examples of items include:
+  - Clothes and accessories for the cats
+  - Cat breeds (application themes)
 
 10. Settings
 
--   Users will be able to configure their account settings such as e-mail and password.
--   Users will be able to configure their application notification settings.
--   Users will be able to set the theme of their application.
+- Users will be able to configure their account settings such as e-mail and password.
+- Users will be able to configure their application notification settings.
+- Users will be able to set the theme of their application.
 
 ## User Stories
 
@@ -131,8 +131,7 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether to display this screen.
 
-A challenge faced in the development of this screen was in the ability to test whether the screen only shows up during the first launch. The React Native Debugger tool could be used to read
-read into the contents of AsyncStorage but there were problems encountered in installing the tool, hence instead of using the debugger tool, a temporary button to reset the device's AsyncStorage contents was created and subsequently removed when the first launch detection functionality was sufficiently tested. If possible, automated testing could be set up in future milestones.
+A challenge faced in the development of this screen was in the ability to test whether the screen only shows up during the first launch. The React Native Debugger tool could be used to read into the contents of AsyncStorage but there were problems encountered in installing the tool, hence instead of using the debugger tool, a temporary button to reset the device's AsyncStorage contents was created and subsequently removed when the first launch detection functionality was sufficiently tested. If possible, automated testing could be set up in future milestones.
 
 ### Login
 
@@ -179,9 +178,9 @@ A navigation drawer for users to navigate to different screens of Focat. Functio
 
 1. Do up the skeleton of the application
 
--   Login (Home Page for non-logged in users)
--   Registration
--   Settings, including Logout
+- Login (Home Page for non-logged in users)
+- Registration
+- Settings, including Logout
 
 2. Timer and stopwatch for one user
 
@@ -190,18 +189,18 @@ A navigation drawer for users to navigate to different screens of Focat. Functio
 3. Friend system including friends list
 4. Joining other sessions via unique code or unique URL
 
--   Join a friend's session halfway
--   Join a friend's room instead of waiting for invite code/link
--   Transfer host of the room when host leaves the room
--   Chat room within the application itself (Before the session starts)
+- Join a friend's session halfway
+- Join a friend's room instead of waiting for invite code/link
+- Transfer host of the room when host leaves the room
+- Chat room within the application itself (Before the session starts)
 
 5. Dashboard
 6. Timeline
 7. Goals
 
--   Goal setting
--   To-do list
--   Session tags
+- Goal setting
+- To-do list
+- Session tags
 
 ### Features by Milestone 3 (25 Jul):
 
