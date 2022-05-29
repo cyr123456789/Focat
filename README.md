@@ -131,6 +131,9 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 
 A screen meant to be shown only upon the first launch of Focat. By using AsyncStorage, a string is saved in the device's local storage during the first launch of Focat. In subsequent launches, Focat will check whether the string exists and decide whether to display this screen.
 
+A challenge faced in the development of this screen was in the ability to test whether the screen only shows up during the first launch. The React Native Debugger tool could be used to read
+read into the contents of AsyncStorage but there were problems encountered in installing the tool, hence instead of using the debugger tool, a temporary button to reset the device's AsyncStorage contents was created and subsequently removed when the first launch detection functionality was sufficiently tested. If possible, automated testing could be set up in future milestones.
+
 ### Login
 
 ![alt text](../assets/implementation/login.png?raw=true)
@@ -147,6 +150,10 @@ A login screen implemented with Firebase Authentication. Error messages upon log
 ![alt text](../assets/implementation/countdown_timer_group.png?raw=true)
 
 A simple proof-of-concept countdown timer which only works locally. Simple UI for group countdowns have been implemented but actual group countdown functionality will be implemented in subsequent milestones.
+
+A challenge faced in the development of this screen was that the available libraries online were not suitable for the intended design of Focat. This was solved by creating a custom component for the countdown timer and by extension, this also solved the problem in looking for a suitable stopwatch library.
+
+Another challenged faced was in the development of the design of the slider. However, this was overcame by temporarily using a standard slider library and deferring the UI modifications to future milestones.
 
 ### Stopwatch
 
