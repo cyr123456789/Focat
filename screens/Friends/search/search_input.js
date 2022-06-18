@@ -1,20 +1,25 @@
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
-import React from 'react';
+import React, { useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from '../../firebase';
+import { auth, firestore } from '../../../firebase';
 
-export default function SearchInput({ findUser, setFindUser, data, setData}) {
+export default function SearchInput({ setData }) {
+  const [findUser, setFindUser] = useState('');
   const handleSearch = async (username) => {
     const q = query(
       collection(firestore, 'users'),
-      where('username', '==', username)
+      where('username', '>=', username)
     );
     const querySnapshot = await getDocs(q);
     setData([]);
     querySnapshot.forEach((doc) => {
-      //console.log(doc.id, ' => ', doc.data());
-      setData(oldData => [...oldData, doc.data().username]);
+      if (doc.id != auth.currentUser.uid) {
+        setData((oldData) => [
+          ...oldData,
+          { username: doc.data().username, userid: doc.id },
+        ]);
+      }
     });
   };
 
