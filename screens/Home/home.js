@@ -10,6 +10,7 @@ const Home = ({}) => {
     <ViewPager
       selectedIndex={selectedIndex}
       onSelect={(index) => setSelectedIndex(index)}
+      testID={'homeScreen'}
     >
       <Timer />
       <Stopwatch />
