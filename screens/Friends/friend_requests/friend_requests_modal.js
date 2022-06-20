@@ -4,18 +4,19 @@ import { Modal, Button, Card } from '@ui-kitten/components';
 import { FriendRequestsList } from './friend_requests_list';
 import fetchFriendRequests from './fetch_friend_requests';
 
-const FriendRequestsModal = ({ visible, setVisible }) => {
-  const [data, setData] = useState([]);
+const FriendRequestsModal = ({ visible, setVisible, setFriendListData }) => {
+  const [friendRequests, setFriendRequests] = useState([]);
   useEffect(() => {
-    fetchFriendRequests(setData).catch(console.error);
+    fetchFriendRequests(setFriendRequests);
   }, []);
 
   return (
     <Modal style={styles.container} visible={visible}>
       <Card>
         <FriendRequestsList
-          data={data}
-          setData={setData}
+          friendRequests={friendRequests}
+          setFriendRequests={setFriendRequests}
+          setFriendListData={setFriendListData}
         />
         <Button onPress={() => setVisible(false)}>Close</Button>
       </Card>

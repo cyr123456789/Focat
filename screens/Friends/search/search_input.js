@@ -1,30 +1,13 @@
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
-import React, { useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, firestore } from '../../../firebase';
+import React from 'react';
+import fetchSearchResults from './fetch_search_results';
 
-export default function SearchInput({ setData }) {
-  const [findUser, setFindUser] = useState('');
-  const handleSearch = async (username) => {
-    const q = query(
-      collection(firestore, 'users'),
-      where('username', '>=', username)
-    );
-    const querySnapshot = await getDocs(q);
-    setData([]);
-    querySnapshot.forEach((doc) => {
-      if (doc.id != auth.currentUser.uid) {
-        setData((oldData) => [
-          ...oldData,
-          { username: doc.data().username, userid: doc.id },
-        ]);
-      }
-    });
-  };
-
+const SearchInput = ({ userInput, setUserInput, setSearchResults }) => {
   const searchButton = (props) => (
-    <TouchableWithoutFeedback onPress={() => handleSearch(findUser)}>
+    <TouchableWithoutFeedback
+      onPress={() => fetchSearchResults(userInput, setSearchResults)}
+    >
       <Icon name="search-outline" {...props} />
     </TouchableWithoutFeedback>
   );
@@ -33,12 +16,14 @@ export default function SearchInput({ setData }) {
     <Input
       style={styles.input}
       placeholder="Enter username"
-      value={findUser}
-      onChangeText={(text) => setFindUser(text)}
+      value={userInput}
+      onChangeText={(text) => setUserInput(text)}
       accessoryRight={searchButton}
     />
   );
-}
+};
+
+export default SearchInput;
 
 const styles = StyleSheet.create({
   input: {

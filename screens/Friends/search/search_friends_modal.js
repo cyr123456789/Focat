@@ -5,13 +5,22 @@ import SearchInput from './search_input';
 import { SearchFriendsList } from './search_friends_list';
 
 const SearchFriendsModal = ({ visible, setVisible }) => {
-  const [data, setData] = useState([]);
+  const [userInput, setUserInput] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   return (
     <Modal style={styles.container} visible={visible}>
       <Card>
-        <SearchInput data={data} setData={setData} />
-        <SearchFriendsList data={data} />
+        <SearchInput
+          userInput={userInput}
+          setUserInput={setUserInput}
+          setSearchResults={setSearchResults}
+        />
+        <SearchFriendsList
+          userInput={userInput}
+          setSearchResults={setSearchResults}
+          searchResults={searchResults}
+        />
         <Button onPress={() => setVisible(false)}>Close</Button>
       </Card>
     </Modal>

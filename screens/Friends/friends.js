@@ -8,18 +8,28 @@ import FriendRequestsModal from './friend_requests/friend_requests_modal';
 const Friends = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showRequests, setShowRequests] = useState(false);
+  const [friendListData, setFriendListData] = useState([]);
 
   return (
     <Layout style={styles.container}>
       <SearchFriendsModal visible={showSearch} setVisible={setShowSearch} />
-      <FriendRequestsModal visible={showRequests} setVisible={setShowRequests} />
-      <Button style={styles.button} onPress={() => setShowSearch(true)}>
-        Search
-      </Button>
-      <Button style={styles.button} onPress={() => setShowRequests(true)}>
-        Friend Requests
-      </Button>
-      <FriendsList />
+      <FriendRequestsModal
+        visible={showRequests}
+        setVisible={setShowRequests}
+        setFriendListData={setFriendListData}
+      />
+      <Layout style={styles.buttonContainer}>
+        <Button style={styles.button} onPress={() => setShowSearch(true)}>
+          Search Friends
+        </Button>
+        <Button style={styles.button} onPress={() => setShowRequests(true)}>
+          Friend Requests
+        </Button>
+      </Layout>
+      <FriendsList
+        friendListData={friendListData}
+        setFriendListData={setFriendListData}
+      />
     </Layout>
   );
 };
@@ -32,7 +42,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
   button: {
-    margin: 4
-  }
+    margin: 4,
+    width: '40%',
+  },
 });

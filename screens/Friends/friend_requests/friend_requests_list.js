@@ -11,8 +11,13 @@ import convertUID from '../../../utils/userIdToUsername';
 import { auth, firestore } from '../../../firebase';
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import fetchFriendRequests from './fetch_friend_requests';
+import fetchFriendListData from '../friends_list/fetch_friend_list_data';
 
-export const FriendRequestsList = (data) => {
+export const FriendRequestsList = ({
+  friendRequests,
+  setFriendRequests,
+  setFriendListData,
+}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -21,7 +26,7 @@ export const FriendRequestsList = (data) => {
 
   const getUsernames = async () => {
     setUsers([]);
-    data.data.forEach((userId) => {
+    friendRequests.forEach((userId) => {
       convertUID(userId).then((username) =>
         setUsers((oldData) => [
           ...oldData,
@@ -49,7 +54,8 @@ export const FriendRequestsList = (data) => {
             friends: arrayUnion(auth.currentUser.uid),
             sent_requests: arrayRemove(auth.currentUser.uid),
           });
-          fetchFriendRequests(data.setData).then(() => getUsernames());
+          fetchFriendRequests(setFriendRequests).then(() => getUsernames());
+          fetchFriendListData(setFriendListData);
         }}
       ></Button>
       <Button
@@ -63,7 +69,8 @@ export const FriendRequestsList = (data) => {
           updateDoc(friend, {
             sent_requests: arrayRemove(auth.currentUser.uid),
           });
-          fetchFriendRequests(data.setData).then(() => getUsernames());
+          fetchFriendRequests(setFriendRequests).then(() => getUsernames());
+          fetchFriendListData(setFriendListData);
         }}
       ></Button>
     </ButtonGroup>
