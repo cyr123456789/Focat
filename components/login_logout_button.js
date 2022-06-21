@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@ui-kitten/components';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/index';
+import { removeUsername } from '../utils/usernameStorage';
 
 const LoginLogoutButton = ({ styles, navigation }) => {
   let button;
@@ -18,6 +19,7 @@ const LoginLogoutButton = ({ styles, navigation }) => {
         onPress={() =>
           signOut(auth)
             .then(() => {
+              removeUsername();
               navigation.closeDrawer();
             })
             .catch((error) => {

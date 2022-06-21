@@ -1,21 +1,25 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import { Text, Layout, Avatar, Divider } from '@ui-kitten/components';
-// import { auth } from '../firebase/index';
 import LoginLogoutButton from '../components/login_logout_button';
-
-import { useSelector } from 'react-redux';
+import { getUsername } from '../utils/usernameStorage';
 
 const DrawerContent = (props) => {
   /**
-   * To display username on the drawer instead of the email address
+   * To display username on the drawer. Username only retrieved once.
    */
-  const username = useSelector((state) => state.username.username);
-  // let username = auth.currentUser?.email ?? 'Guest';
+  const [username, setUsername] = useState('Guest');
+  getUsername().then((value) => {
+    if (value !== undefined) {
+      setUsername(value);
+    } else {
+      setUsername('Guest');
+    }
+  });
 
   return (
     <Layout style={styles.container}>

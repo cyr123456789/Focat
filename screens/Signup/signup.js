@@ -7,17 +7,10 @@ import Toast from 'react-native-root-toast';
 import { Button, Input, Layout, Icon } from '@ui-kitten/components';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeUsername } from '../../store/username';
+import { storeUsername } from '../../utils/usernameStorage';
 
 const Signup = () => {
-  const dispatch = useDispatch();
-  const username = useSelector((state) => state.username.username);
-  const [input, setInput] = useState('');
-  const setUsername = () => {
-    dispatch(changeUsername({ username: input }));
-  };
-
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -58,15 +51,22 @@ const Signup = () => {
         }
       );
     } else {
-      setUsername();
+      storeUsername(username);
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           setDoc(doc(firestore, 'users', user.uid), {
-            username: input.trim(),
+            username: username.trim(),
+            cat_cash: 0,
+            is_online: true,
+            sent_requests: [],
+            received_requests: [],
+            friends: [],
+            achievements: [],
+            items: [],
           });
           console.log('Registered:', user.email);
-          Toast.show(`Successful sign up. Welcome ${input}!`, {
+          Toast.show(`Successful sign up. Welcome ${username}!`, {
             duration: Toast.durations.SHORT,
           });
         })
@@ -86,9 +86,9 @@ const Signup = () => {
         <Input
           style={styles.input}
           placeholder="Username"
-          value={input}
+          value={username}
           maxLength={15}
-          onChangeText={setInput}
+          onChangeText={setUsername}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
         />
         <EmailTextInput email={email} setEmail={setEmail} />
