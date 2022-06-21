@@ -55,6 +55,13 @@ const Signup = () => {
           const user = userCredential.user;
           setDoc(doc(firestore, 'users', user.uid), {
             username: username.trim(),
+            cat_cash: 0,
+            is_online: true,
+            sent_requests: [],
+            received_requests: [],
+            friends: [],
+            achievements: [],
+            items: []
           });
           console.log('Registered:', user.email);
           Toast.show(`Successful sign up. Welcome ${username}!`, {
