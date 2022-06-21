@@ -81,13 +81,19 @@ const Signup = () => {
           maxLength={15}
           onChangeText={(text) => setUsername(text)}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
+          testID={'usernameInput'}
         />
-        <EmailTextInput email={email} setEmail={setEmail} />
+        <EmailTextInput
+          email={email}
+          setEmail={setEmail}
+          testID={'emailInput'}
+        />
         <PasswordTextInput
           password={password}
           setPassword={setPassword}
           secureTextEntry={secureTextEntry}
           setSecureTextEntry={setSecureTextEntry}
+          testID={'passwordInput'}
         />
         <Input
           style={styles.input}
@@ -96,6 +102,7 @@ const Signup = () => {
           onChangeText={(text) => setConfirmPassword(text)}
           secureTextEntry={secureTextEntry}
           accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
+          testID={'confirmPasswordInput'}
         />
         <Button style={styles.button} onPress={handleSignup}>
           Sign Up
