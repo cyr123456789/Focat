@@ -8,7 +8,6 @@ import Login from '../screens/Login/login';
 jest.useFakeTimers();
 
 const userObject = {
-  username: 'Test User',
   email: 'testuser@email.com',
   password: 'Password123!',
 };
