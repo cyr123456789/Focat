@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { Layout } from '@ui-kitten/components';
-import Clock from '../../components/clock';
-import StartStopButton from '../../components/start_stop_button';
+import Clock from './clock';
+import StartStopButton from './start_stop_button';
 
 const Stopwatch = () => {
   const [timer, setTimer] = useState(0);

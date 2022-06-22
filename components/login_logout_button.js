@@ -18,7 +18,7 @@ const LoginLogoutButton = ({ styles, navigation }) => {
         onPress={() =>
           signOut(auth)
             .then(() => {
-              navigation.closeDrawer();
+              navigation.navigate('Login')
             })
             .catch((error) => {
               console.log(error.message);

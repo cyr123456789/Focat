@@ -39,6 +39,10 @@ const Login = ({ navigation }) => {
       });
   };
 
+  const navigateHome = () => {
+    navigation.replace('StackHome');
+  }
+
   return (
     <Layout style={styles.container}>
       <KeyboardAvoidingView>
@@ -59,6 +63,9 @@ const Login = ({ navigation }) => {
         <Button style={styles.button} onPress={navigateSignup}>
           Sign Up
         </Button>
+        <Button style={styles.button} onPress={navigateHome}>
+          Continue as Guest
+        </Button>
       </KeyboardAvoidingView>
     </Layout>
   );
@@ -77,6 +84,6 @@ const styles = StyleSheet.create({
     height: 300,
   },
   button: {
-    marginVertical: 10,
+    marginVertical: 5,
   },
 });

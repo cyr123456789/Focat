@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
 import { Button } from '@ui-kitten/components';
 
-const StartStopButton = ({ start, stop, style }) => {
-  const [bool, setBool] = useState(true);
+const StartStopButton = ({ startStop, setStartStop, start, stop, style }) => {
   let button;
-  if (bool) {
+  if (startStop) {
     button = (
       <Button
         style={style}
         onPress={() => {
           start();
-          setBool(false);
+          setStartStop(false);
         }}
       >
         Start
@@ -22,7 +20,6 @@ const StartStopButton = ({ start, stop, style }) => {
         style={style}
         onPress={() => {
           stop();
-          setBool(true);
         }}
       >
         Stop
