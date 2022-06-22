@@ -7,6 +7,7 @@ import Toast from 'react-native-root-toast';
 import { Button, Input, Layout, Icon } from '@ui-kitten/components';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
+import { storeUsername } from '../../utils/usernameStorage';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -50,6 +51,7 @@ const Signup = () => {
         }
       );
     } else {
+      storeUsername(username);
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
@@ -62,7 +64,10 @@ const Signup = () => {
             friends: [],
             achievements: [],
             items: [],
+<<<<<<< HEAD
             current_session: '',
+=======
+>>>>>>> origin/main
           });
           console.log('Registered:', user.email);
           Toast.show(`Successful sign up. Welcome ${username}!`, {
@@ -87,7 +92,7 @@ const Signup = () => {
           placeholder="Username"
           value={username}
           maxLength={15}
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={setUsername}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
         />
         <EmailTextInput email={email} setEmail={setEmail} />
@@ -101,7 +106,7 @@ const Signup = () => {
           style={styles.input}
           placeholder="Re-enter Password"
           value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={setConfirmPassword}
           secureTextEntry={secureTextEntry}
           accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
         />
