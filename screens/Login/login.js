@@ -6,6 +6,8 @@ import { Button, Layout } from '@ui-kitten/components';
 import Toast from 'react-native-root-toast';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
+import convertUID from '../../utils/userIdToUsername';
+import { storeUsername } from '../../utils/usernameStorage';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -30,6 +32,7 @@ const Login = ({ navigation }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log('Logged in with:', user.email);
+        convertUID(user.uid).then((username) => storeUsername(username));
       })
       .catch((error) => {
         console.log(error.message);
