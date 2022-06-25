@@ -13,19 +13,30 @@ import { Slider } from '@miblanchard/react-native-slider';
 import Clock from './clock';
 import StartStopButton from './start_stop_button';
 import isLoggedIn from '../../utils/isLoggedIn';
-import startSession from './start_session';
-import stopSession from './stop_session';
+import startSession from './session/start_session';
+import stopSession from './session/stop_session';
+import rejoinSession from './session/rejoin_session';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
-  const [startStop, setStartStop] = useState(true);
-  const [disableSlider, setDisableSlider] = useState(false);
-  const [isGroup, setIsGroup] = useState(false);
-  const [groupToggleText, setGroupToggleText] = useState('Solo');
   const [intervalId, setIntervalId] = useState(0);
+  const [isGroup, setIsGroup] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
   const [addVisible, setAddVisible] = useState(false);
-  const [loggedIn] = useState(!isLoggedIn());
+  const [inProgress, setInProgress] = useState(false);
+  const [rejoinProgress, setRejoinProgress] = useState(false);
+
+  useEffect(() => {
+    rejoinSession(setTimer, setRejoinProgress).then(() => {
+      if (rejoinProgress) {
+        setInProgress(true);
+        const id = setInterval(() => {
+          setTimer((timer) => timer - 1000);
+        }, 1000);
+        setIntervalId(id);
+      }
+    });
+  }, [rejoinProgress]);
 
   useEffect(() => {
     if (timer < 1000) {
@@ -34,7 +45,7 @@ const Timer = ({}) => {
   });
 
   const start = () => {
-    setDisableSlider(true);
+    setInProgress(true);
     const id = setInterval(() => {
       setTimer((timer) => timer - 1000);
     }, 1000);
@@ -44,26 +55,33 @@ const Timer = ({}) => {
 
   const stop = () => {
     clearInterval(intervalId);
-    setDisableSlider(false);
+    setInProgress(false);
     setTimer(1500000);
     stopSession();
-    setStartStop(true);
   };
 
   const toggleGroup = () => {
     setIsGroup(!isGroup);
-    groupToggleText === 'Solo'
-      ? setGroupToggleText('Group')
-      : setGroupToggleText('Solo');
   };
 
+  let toggle;
+  if (inProgress) {
+    toggle = <></>;
+  } else {
+    toggle = (
+      <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
+        {isGroup ? 'Group' : 'Solo'}
+      </Toggle>
+    );
+  }
+
   let slider;
-  if (disableSlider) {
+  if (inProgress) {
     slider = <></>;
   } else {
     slider = (
       <Slider
-        disabled={disableSlider}
+        disabled={inProgress}
         value={timer}
         minimumValue={1000}
         maximumValue={3600000}
@@ -75,15 +93,14 @@ const Timer = ({}) => {
   }
 
   let button;
-  if (isGroup) {
+  if (isGroup && !inProgress) {
     button = (
       <ButtonGroup>
         <Button style={styles.button} onPress={() => setChatVisible(true)}>
           Chat
         </Button>
         <StartStopButton
-          startStop={startStop}
-          setStartStop={setStartStop}
+          progress={inProgress}
           style={styles.button}
           start={start}
           stop={stop}
@@ -96,8 +113,7 @@ const Timer = ({}) => {
   } else {
     button = (
       <StartStopButton
-        startStop={startStop}
-        setStartStop={setStartStop}
+        progress={inProgress}
         style={styles.button}
         start={start}
         stop={stop}
@@ -119,9 +135,7 @@ const Timer = ({}) => {
           <Button onPress={() => setAddVisible(false)}>Close</Button>
         </Card>
       </Modal>
-      <Toggle checked={isGroup} onChange={toggleGroup} disabled={loggedIn}>
-        {groupToggleText}
-      </Toggle>
+      {toggle}
       <Clock interval={timer} style={styles.time}></Clock>
       {slider}
       {button}

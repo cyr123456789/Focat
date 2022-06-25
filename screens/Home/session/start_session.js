@@ -1,6 +1,12 @@
-import { auth, firestore } from '../../firebase';
-import { collection, doc, serverTimestamp, addDoc, updateDoc } from 'firebase/firestore';
-import isLoggedIn from '../../utils/isLoggedIn';
+import { auth, firestore } from '../../../firebase';
+import {
+  collection,
+  doc,
+  serverTimestamp,
+  addDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import isLoggedIn from '../../../utils/isLoggedIn';
 
 const startSession = async (duration) => {
   if (isLoggedIn()) {
@@ -13,7 +19,7 @@ const startSession = async (duration) => {
     });
     await updateDoc(doc(firestore, 'users', auth.currentUser.uid), {
       current_session: docRef.id,
-    })
+    });
   }
 };
 

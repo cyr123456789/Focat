@@ -1,7 +1,7 @@
-import { auth, firestore } from '../../firebase';
+import { auth, firestore } from '../../../firebase';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import isLoggedIn from '../../utils/isLoggedIn';
-import fetchDocument from '../../utils/fetch_document';
+import isLoggedIn from '../../../utils/isLoggedIn';
+import fetchDocument from '../../../utils/fetchDocument';
 
 const stopSession = async () => {
   if (isLoggedIn()) {

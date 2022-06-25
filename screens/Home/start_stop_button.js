@@ -1,14 +1,14 @@
+import React from 'react';
 import { Button } from '@ui-kitten/components';
 
-const StartStopButton = ({ startStop, setStartStop, start, stop, style }) => {
+const StartStopButton = ({ progress, start, stop, style }) => {
   let button;
-  if (startStop) {
+  if (!progress) {
     button = (
       <Button
         style={style}
         onPress={() => {
           start();
-          setStartStop(false);
         }}
       >
         Start
