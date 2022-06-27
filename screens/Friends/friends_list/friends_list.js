@@ -10,11 +10,14 @@ import {
 import { StyleSheet } from 'react-native';
 import fetchFriendListData from './fetch_friend_list_data';
 import joinFriendSession from './join_friend_session';
+import { useNavigation } from '@react-navigation/native';
 
 export const FriendsList = ({ friendListData, setFriendListData }) => {
   useEffect(() => {
     fetchFriendListData({ friendListData, setFriendListData });
   }, []);
+
+  const navigation = useNavigation();
 
   const renderItemAccessory = (props) => {
     const disabled = props.current_session === 'NIL' ? true : false;
@@ -24,8 +27,9 @@ export const FriendsList = ({ friendListData, setFriendListData }) => {
           style={styles.button}
           size="small"
           onPress={() => {
-            joinFriendSession(props.current_session);
-            console.log(props.current_session);
+            joinFriendSession(props.current_session).then(() =>
+              navigation.navigate('Home')
+            );
           }}
           disabled={disabled}
         >

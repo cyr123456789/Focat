@@ -16,6 +16,7 @@ import isLoggedIn from '../../utils/isLoggedIn';
 import startSession from './session/start_session';
 import stopSession from './session/stop_session';
 import rejoinSession from './session/rejoin_session';
+import { useIsFocused } from '@react-navigation/native';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
@@ -26,17 +27,21 @@ const Timer = ({}) => {
   const [inProgress, setInProgress] = useState(false);
   const [rejoinProgress, setRejoinProgress] = useState(false);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    rejoinSession(setTimer, setRejoinProgress).then(() => {
-      if (rejoinProgress) {
-        setInProgress(true);
-        const id = setInterval(() => {
-          setTimer((timer) => timer - 1000);
-        }, 1000);
-        setIntervalId(id);
-      }
-    });
-  }, [rejoinProgress]);
+    if (!inProgress && isFocused) {
+      rejoinSession(setTimer, setRejoinProgress).then(() => {
+        if (rejoinProgress) {
+          setInProgress(true);
+          const id = setInterval(() => {
+            setTimer((timer) => timer - 1000);
+          }, 1000);
+          setIntervalId(id);
+        }
+      });
+    }
+  }, [isFocused, rejoinProgress]);
 
   useEffect(() => {
     if (timer < 1000) {
@@ -45,19 +50,22 @@ const Timer = ({}) => {
   });
 
   const start = () => {
-    setInProgress(true);
-    const id = setInterval(() => {
-      setTimer((timer) => timer - 1000);
-    }, 1000);
-    setIntervalId(id);
-    startSession(timer / 1000);
+    startSession(timer / 1000).then(() => {
+      const id = setInterval(() => {
+        setTimer((timer) => timer - 1000);
+      }, 1000);
+      setIntervalId(id);
+      setInProgress(true);
+    });
   };
 
   const stop = () => {
-    clearInterval(intervalId);
-    setInProgress(false);
-    setTimer(1500000);
-    stopSession();
+    stopSession().then(() => {
+      clearInterval(intervalId);
+      setTimer(1500000);
+      setInProgress(false);
+      setRejoinProgress(false);
+    });
   };
 
   const toggleGroup = () => {
