@@ -17,12 +17,14 @@ const stopSession = async () => {
       current_session: '',
     });
 
-    const sessionDoc = await fetchDocument('sessions', sessionId);
+    let sessionDoc = await fetchDocument('sessions', sessionId);
 
     if (sessionDoc.data().host_id === auth.currentUser.uid) {
       await updateDoc(doc(firestore, 'sessions', sessionId), {
         end_time: serverTimestamp(),
       });
+
+      let sessionDoc = await fetchDocument('sessions', sessionId);
 
       sessionDoc.data().users.forEach(async (userId) => {
         await updateDoc(doc(firestore, 'users', userId), {
