@@ -5,7 +5,7 @@ import isLoggedIn from '../../../utils/isLoggedIn';
 const joinFriendSession = async (sessionId) => {
   if (isLoggedIn()) {
     await updateDoc(doc(firestore, 'sessions', sessionId), {
-      users: arrayUnion(sessionId),
+      users: arrayUnion(auth.currentUser.uid),
     });
     await updateDoc(doc(firestore, 'users', auth.currentUser.uid), {
       current_session: sessionId,
