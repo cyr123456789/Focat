@@ -64,6 +64,7 @@ const Signup = () => {
             friends: [],
             achievements: [],
             items: [],
+            current_session: '',
           });
           console.log('Registered:', user.email);
           Toast.show(`Successful sign up. Welcome ${username}!`, {

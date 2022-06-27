@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   Layout,
@@ -10,47 +10,88 @@ import {
   ButtonGroup,
 } from '@ui-kitten/components';
 import { Slider } from '@miblanchard/react-native-slider';
-import Clock from '../../components/clock';
-import StartStopButton from '../../components/start_stop_button';
+import Clock from './clock';
+import StartStopButton from './start_stop_button';
+import isLoggedIn from '../../utils/isLoggedIn';
+import startSession from './session/start_session';
+import stopSession from './session/stop_session';
+import rejoinSession from './session/rejoin_session';
+import { useIsFocused } from '@react-navigation/native';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
-  const [disableSlider, setDisableSlider] = useState(false);
-  const [isGroup, setIsGroup] = useState(false);
-  const [groupToggleText, setGroupToggleText] = useState('Solo');
   const [intervalId, setIntervalId] = useState(0);
+  const [isGroup, setIsGroup] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
   const [addVisible, setAddVisible] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [rejoinProgress, setRejoinProgress] = useState(false);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (!inProgress && isFocused) {
+      rejoinSession(setTimer, setRejoinProgress).then(() => {
+        if (rejoinProgress) {
+          setInProgress(true);
+          const id = setInterval(() => {
+            setTimer((timer) => timer - 1000);
+          }, 1000);
+          setIntervalId(id);
+        }
+      });
+    }
+  }, [isFocused, rejoinProgress]);
+
+  useEffect(() => {
+    if (timer < 1000) {
+      stop();
+    }
+  });
 
   const start = () => {
-    setDisableSlider(true);
-    const id = setInterval(() => {
-      setTimer((timer) => timer - 1000);
-    }, 1000);
-    setIntervalId(id);
+    startSession(timer / 1000).then(() => {
+      const id = setInterval(() => {
+        setTimer((timer) => timer - 1000);
+      }, 1000);
+      setIntervalId(id);
+      setInProgress(true);
+    });
   };
 
   const stop = () => {
-    clearInterval(intervalId);
-    setDisableSlider(false);
+    stopSession().then(() => {
+      clearInterval(intervalId);
+      setTimer(1500000);
+      setInProgress(false);
+      setRejoinProgress(false);
+    });
   };
 
   const toggleGroup = () => {
     setIsGroup(!isGroup);
-    groupToggleText === 'Solo'
-      ? setGroupToggleText('Group')
-      : setGroupToggleText('Solo');
   };
 
+  let toggle;
+  if (inProgress) {
+    toggle = <></>;
+  } else {
+    toggle = (
+      <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
+        {isGroup ? 'Group' : 'Solo'}
+      </Toggle>
+    );
+  }
+
   let slider;
-  if (disableSlider) {
+  if (inProgress) {
     slider = <></>;
   } else {
     slider = (
       <Slider
-        disabled={disableSlider}
+        disabled={inProgress}
         value={timer}
-        minimumValue={0}
+        minimumValue={1000}
         maximumValue={3600000}
         step={1000}
         onValueChange={(value) => setTimer(value)}
@@ -60,13 +101,18 @@ const Timer = ({}) => {
   }
 
   let button;
-  if (isGroup) {
+  if (isGroup && !inProgress) {
     button = (
       <ButtonGroup>
         <Button style={styles.button} onPress={() => setChatVisible(true)}>
           Chat
         </Button>
-        <StartStopButton style={styles.button} start={start} stop={stop} />
+        <StartStopButton
+          progress={inProgress}
+          style={styles.button}
+          start={start}
+          stop={stop}
+        />
         <Button style={styles.button} onPress={() => setAddVisible(true)}>
           Add
         </Button>
@@ -74,7 +120,12 @@ const Timer = ({}) => {
     );
   } else {
     button = (
-      <StartStopButton style={styles.button} start={start} stop={stop} />
+      <StartStopButton
+        progress={inProgress}
+        style={styles.button}
+        start={start}
+        stop={stop}
+      />
     );
   }
 
@@ -92,9 +143,7 @@ const Timer = ({}) => {
           <Button onPress={() => setAddVisible(false)}>Close</Button>
         </Card>
       </Modal>
-      <Toggle checked={isGroup} onChange={toggleGroup}>
-        {groupToggleText}
-      </Toggle>
+      {toggle}
       <Clock interval={timer} style={styles.time}></Clock>
       {slider}
       {button}

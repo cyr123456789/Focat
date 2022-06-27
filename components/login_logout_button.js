@@ -20,7 +20,7 @@ const LoginLogoutButton = ({ styles, navigation }) => {
           signOut(auth)
             .then(() => {
               removeUsername();
-              navigation.closeDrawer();
+              navigation.navigate('Login')
             })
             .catch((error) => {
               console.log(error.message);
