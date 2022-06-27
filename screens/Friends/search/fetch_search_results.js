@@ -27,6 +27,7 @@ const fetchSearchResults = async (userInput, setSearchResults) => {
           username: doc.data().username,
           userid: doc.id,
           alreadyAdded: docSnap.data().sent_requests.includes(doc.id),
+          alreadyFriends: docSnap.data().friends.includes(doc.id),
         },
       ]);
     }

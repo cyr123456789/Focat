@@ -56,13 +56,19 @@ export const SearchFriendsList = ({
 
   const renderItemIcon = (props) => <Icon {...props} name="person" />;
 
-  const renderItem = ({ item }) => (
-    <ListItem
-      title={`${item.username}`}
-      accessoryLeft={renderItemIcon}
-      accessoryRight={() => renderItemAccessory(item)}
-    />
-  );
+  const renderItem = ({ item }) => {
+    if (item.alreadyFriends) {
+      return <></>;
+    } else {
+      return (
+        <ListItem
+          title={`${item.username}`}
+          accessoryLeft={renderItemIcon}
+          accessoryRight={() => renderItemAccessory(item)}
+        />
+      );
+    }
+  };
 
   return (
     <List
