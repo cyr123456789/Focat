@@ -35,7 +35,6 @@ const Login = ({ navigation }) => {
         convertUID(user.uid).then((username) => storeUsername(username));
       })
       .catch((error) => {
-        console.log(error.message);
         Toast.show('Incorrect email/password. Try again.', {
           duration: Toast.durations.SHORT,
         });
@@ -49,17 +48,30 @@ const Login = ({ navigation }) => {
           style={styles.logo}
           source={require('../../assets/peachcat.png')}
         />
-        <EmailTextInput email={email} setEmail={setEmail} />
+        <EmailTextInput
+          email={email}
+          setEmail={setEmail}
+          testID={'emailInput'}
+        />
         <PasswordTextInput
           password={password}
           setPassword={setPassword}
           secureTextEntry={secureTextEntry}
           setSecureTextEntry={setSecureTextEntry}
+          testID={'passwordInput'}
         />
-        <Button style={styles.button} onPress={handleLogin}>
+        <Button
+          style={styles.button}
+          onPress={handleLogin}
+          testID={'loginButton'}
+        >
           Login
         </Button>
-        <Button style={styles.button} onPress={navigateSignup}>
+        <Button
+          style={styles.button}
+          onPress={navigateSignup}
+          testID={'signupButton'}
+        >
           Sign Up
         </Button>
       </KeyboardAvoidingView>
