@@ -1,15 +1,25 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import { Text, Layout, Avatar, Divider } from '@ui-kitten/components';
-import { auth } from '../firebase/index';
 import LoginLogoutButton from '../components/login_logout_button';
+import { getUsername } from '../utils/usernameStorage';
 
 const DrawerContent = (props) => {
-  let username = auth.currentUser?.email ?? 'Guest';
+  /**
+   * To display username on the drawer. Username only retrieved once.
+   */
+  const [username, setUsername] = useState('Guest');
+  getUsername().then((value) => {
+    if (value !== undefined) {
+      setUsername(value);
+    } else {
+      setUsername('Guest');
+    }
+  });
 
   return (
     <Layout style={styles.container}>
@@ -19,24 +29,21 @@ const DrawerContent = (props) => {
             style={styles.profile}
             onPress={() => props.navigation.navigate('Profile')}
           >
-            <Avatar
-              source={require('../assets/peachcat.png')}
-              size="giant"
-            ></Avatar>
+            <Avatar source={require('../assets/peachcat.png')} size="giant" />
             <Text style={styles.username}>{username}</Text>
           </TouchableOpacity>
         </Layout>
-        <Divider></Divider>
+        <Divider />
         <Layout style={styles.middle}>
-          <DrawerItemList {...props}></DrawerItemList>
+          <DrawerItemList {...props} />
         </Layout>
       </DrawerContentScrollView>
-      <Divider></Divider>
+      <Divider />
       <Layout style={styles.bottom}>
         <LoginLogoutButton
           style={styles.button}
           navigation={props.navigation}
-        ></LoginLogoutButton>
+        />
       </Layout>
     </Layout>
   );
