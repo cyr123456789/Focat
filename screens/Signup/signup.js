@@ -72,10 +72,19 @@ const Signup = () => {
           });
         })
         .catch((error) => {
-          console.log(error.message);
-          Toast.show('Unable to create an account. Try again.', {
-            duration: Toast.durations.SHORT,
-          });
+          if (error.code === 'auth/email-already-in-use') {
+            Toast.show('Email already in use.', {
+              duration: Toast.durations.SHORT,
+            });
+          } else if (error.code === 'auth/invalid-email') {
+            Toast.show('Invalid email.', {
+              duration: Toast.durations.SHORT,
+            });
+          } else {
+            Toast.show('Unable to create an account. Try again.', {
+              duration: Toast.durations.SHORT,
+            });
+          }
         });
     }
   };
