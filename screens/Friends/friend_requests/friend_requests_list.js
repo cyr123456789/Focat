@@ -17,12 +17,13 @@ export const FriendRequestsList = ({
   friendRequests,
   setFriendRequests,
   setFriendListData,
+  setVisible,
 }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getUsernames();
-  }, []);
+  }, [friendRequests]);
 
   const getUsernames = async () => {
     setUsers([]);
@@ -54,8 +55,10 @@ export const FriendRequestsList = ({
             friends: arrayUnion(auth.currentUser.uid),
             sent_requests: arrayRemove(auth.currentUser.uid),
           });
-          fetchFriendRequests(setFriendRequests).then(() => getUsernames());
-          fetchFriendListData(setFriendListData);
+          fetchFriendRequests(setFriendRequests);
+          fetchFriendListData({ setFriendListData }).then(() =>
+            setVisible(false)
+          );
         }}
       ></Button>
       <Button
@@ -69,8 +72,10 @@ export const FriendRequestsList = ({
           updateDoc(friend, {
             sent_requests: arrayRemove(auth.currentUser.uid),
           });
-          fetchFriendRequests(setFriendRequests).then(() => getUsernames());
-          fetchFriendListData(setFriendListData);
+          fetchFriendRequests(setFriendRequests);
+          fetchFriendListData({ setFriendListData }).then(() =>
+            setVisible(false)
+          );
         }}
       ></Button>
     </ButtonGroup>

@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const FriendsList = ({ friendListData, setFriendListData }) => {
   useEffect(() => {
-    fetchFriendListData({ friendListData, setFriendListData });
+    fetchFriendListData({setFriendListData});
   }, []);
 
   const navigation = useNavigation();

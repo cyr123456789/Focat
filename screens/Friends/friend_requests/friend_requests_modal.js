@@ -17,6 +17,7 @@ const FriendRequestsModal = ({ visible, setVisible, setFriendListData }) => {
           friendRequests={friendRequests}
           setFriendRequests={setFriendRequests}
           setFriendListData={setFriendListData}
+          setVisible={setVisible}
         />
         <Button onPress={() => setVisible(false)}>Close</Button>
       </Card>
