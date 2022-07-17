@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import {
   Layout,
   Toggle,
@@ -65,12 +65,20 @@ const Timer = ({}) => {
                   if (data.successfully_completed != null) {
                     console.log(data.successfully_completed);
                   }
+                } else if (sessionDoc.data().is_completed) {
+                  if (sessionDoc.data().successfully_completed) {
+                    setInProgress(false);
+                    completeAlert();
+                  } else {
+                    setInProgress(false);
+                    incompleteAlert();
+                  }
                 } else {
                   setInProgress(false);
                 }
               },
               (error) => {
-                console.log(error);
+                console.log(error.code);
               }
             );
             return () => unsubscribe();
@@ -80,10 +88,46 @@ const Timer = ({}) => {
     }, [refresh])
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      if (isLoggedIn()) {
+        getDoc(doc(firestore, 'users', auth.currentUser.uid))
+          .then((userDoc) => {
+            return userDoc.data().current_session;
+          })
+          .then((sessionId) => {
+            const unsubscribe = onSnapshot(
+              doc(firestore, 'sessions', sessionId),
+              (sessionDoc) => {
+                if (sessionDoc.data().successfully_completed) {
+                  console.log('popup alert');
+                }
+              },
+              (error) => {
+                console.log(error.code);
+              }
+            );
+            return () => unsubscribe();
+          });
+      }
+    }, [])
+  );
+
   useEffect(() => {
     if (inProgress) {
       const interval = setInterval(() => {
-        setTimer((timer) => timer - 1000);
+        setTimer((timer) => {
+          if (timer <= 1000) {
+            clearInterval(interval);
+            stopSession().then(() => {
+              setTimer(0);
+              setInProgress(false);
+            });
+            // completeAlert();
+          } else {
+            return timer - 1000;
+          }
+        });
       }, 1000);
 
       return () => clearInterval(interval);
@@ -99,11 +143,33 @@ const Timer = ({}) => {
 
   const stop = () => {
     stopSession().then(() => {
-      setTimer(1500000);
+      setTimer(0);
       setInProgress(false);
     });
-    setRefresh((x) => x + 1);
+    incompleteAlert();
   };
+
+  const completeAlert = () =>
+    Alert.alert(
+      'Session Complete',
+      'Congratulations, you have been awarded cat cash for your hardwork!',
+      [
+        {
+          text: 'Continue',
+          onPress: () => setRefresh((x) => x + 1),
+          style: 'cancel',
+        },
+      ]
+    );
+
+  const incompleteAlert = () =>
+    Alert.alert('Session Incomplete', 'Complete session entirely to get cat cash.', [
+      {
+        text: 'Continue',
+        onPress: () => setRefresh((x) => x + 1),
+        style: 'cancel',
+      },
+    ]);
 
   const toggleGroup = () => {
     setIsGroup(!isGroup);

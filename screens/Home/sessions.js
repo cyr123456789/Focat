@@ -8,6 +8,7 @@ import {
   onSnapshot,
   addDoc,
   collection,
+  increment,
 } from 'firebase/firestore';
 import isLoggedIn from '../../utils/isLoggedIn';
 
@@ -18,6 +19,7 @@ const startSession = async (duration) => {
       host_id: auth.currentUser.uid,
       is_completed: false,
       start_time: serverTimestamp(),
+      successfully_completed: false,
       users: [],
     });
     await updateDoc(doc(firestore, 'users', auth.currentUser.uid), {
@@ -59,6 +61,14 @@ const stopSession = async () => {
               updateDoc(doc(firestore, 'sessions', sessionId), {
                 successfully_completed: true,
                 is_completed: true,
+              });
+              updateDoc(doc(firestore, 'users', auth.currentUser.uid), {
+                cat_cash: increment(Math.floor(session.data().duration)),
+              });
+              session.data().users.forEach(async (userId) => {
+                await updateDoc(doc(firestore, 'users', userId), {
+                  cat_cash: increment(Math.floor(session.data().duration)),
+                });
               });
             } else {
               updateDoc(doc(firestore, 'sessions', sessionId), {
