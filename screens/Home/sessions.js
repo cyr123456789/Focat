@@ -63,11 +63,11 @@ const stopSession = async () => {
                 is_completed: true,
               });
               updateDoc(doc(firestore, 'users', auth.currentUser.uid), {
-                cat_cash: increment(Math.floor(session.data().duration)),
+                cat_cash: increment(Math.floor(session.data().duration / 60)),
               });
               session.data().users.forEach(async (userId) => {
                 await updateDoc(doc(firestore, 'users', userId), {
-                  cat_cash: increment(Math.floor(session.data().duration)),
+                  cat_cash: increment(Math.floor(session.data().duration / 60)),
                 });
               });
             } else {
