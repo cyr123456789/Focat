@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import {
   Button,
   Icon,
@@ -10,12 +10,33 @@ import {
 import { StyleSheet } from 'react-native';
 import fetchFriendListData from './fetch_friend_list_data';
 import joinFriendSession from './join_friend_session';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { onSnapshot, doc } from 'firebase/firestore';
+import { auth, firestore } from '../../../firebase';
+import isLoggedIn from '../../../utils/isLoggedIn';
 
-export const FriendsList = ({ friendListData, setFriendListData }) => {
-  useEffect(() => {
-    fetchFriendListData({setFriendListData});
-  }, []);
+export const FriendsList = ({
+  temp,
+  setTemp,
+  friendListData,
+  setFriendListData,
+}) => {
+  useFocusEffect(
+    useCallback(() => {
+      if (isLoggedIn()) {
+        const unsubscribe = onSnapshot(
+          doc(firestore, 'users', auth.currentUser.uid),
+          (userDoc) => {
+            fetchFriendListData({ temp, setTemp, setFriendListData });
+          },
+          (error) => {
+            console.log(error.code);
+          }
+        );
+        return () => unsubscribe();
+      }
+    }, [])
+  );
 
   const navigation = useNavigation();
 
@@ -54,7 +75,7 @@ export const FriendsList = ({ friendListData, setFriendListData }) => {
   };
 
   if (friendListData.length == 0) {
-    return <Text>Loading</Text>;
+    return <Text>You have no friends lol</Text>;
   } else {
     return (
       <List
