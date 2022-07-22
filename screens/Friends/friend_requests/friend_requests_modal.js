@@ -1,14 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { Modal, Button, Card } from '@ui-kitten/components';
 import { FriendRequestsList } from './friend_requests_list';
 import fetchFriendRequests from './fetch_friend_requests';
+import { useFocusEffect } from '@react-navigation/native';
+import { onSnapshot, doc } from 'firebase/firestore';
+import { auth, firestore } from '../../../firebase';
+import isLoggedIn from '../../../utils/isLoggedIn';
 
 const FriendRequestsModal = ({ visible, setVisible, setFriendListData }) => {
   const [friendRequests, setFriendRequests] = useState([]);
-  useEffect(() => {
-    fetchFriendRequests(setFriendRequests);
-  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (isLoggedIn()) {
+        const unsubscribe = onSnapshot(
+          doc(firestore, 'users', auth.currentUser.uid),
+          (userDoc) => {
+            fetchFriendRequests(setFriendRequests);
+          },
+          (error) => {
+            console.log(error.code);
+          }
+        );
+        return () => unsubscribe();
+      }
+    }, [])
+  );
 
   return (
     <Modal style={styles.container} visible={visible}>

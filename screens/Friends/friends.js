@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 import SearchFriendsModal from './search/search_friends_modal';
@@ -9,6 +9,7 @@ const Friends = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showRequests, setShowRequests] = useState(false);
   const [friendListData, setFriendListData] = useState([]);
+  const [temp, setTemp] = useState([]);
 
   return (
     <Layout style={styles.container}>
@@ -27,6 +28,8 @@ const Friends = () => {
         </Button>
       </Layout>
       <FriendsList
+        temp={temp}
+        setTemp={setTemp}
         friendListData={friendListData}
         setFriendListData={setFriendListData}
       />
