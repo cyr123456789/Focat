@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text } from "@ui-kitten/components";
 
-const Store = () => {
+const Leaderboard = () => {
   return (
     <Layout style={styles.container}>
       <Text>Hello World!</Text>
@@ -11,7 +11,7 @@ const Store = () => {
   );
 };
 
-export default Store;
+export default Leaderboard;
 
 const styles = StyleSheet.create({
   container: {
