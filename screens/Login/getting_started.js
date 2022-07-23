@@ -34,12 +34,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: 300,
+    height: 300,
   },
   button: {
     alignItems: 'center',
     margin: 4,
-    width: 280
   },
 });

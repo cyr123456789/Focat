@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Layout } from '@ui-kitten/components';
 import Clock from './clock';
 import StartStopButton from './start_stop_button';
+import CatMotivationComponent from './Components/cat_motivation';
 
 const Stopwatch = () => {
   const [timer, setTimer] = useState(0);
@@ -25,13 +26,22 @@ const Stopwatch = () => {
 
   return (
     <Layout style={styles.container}>
-      <Clock interval={timer} style={styles.time} />
-      <StartStopButton
-        progress={inProgress}
-        style={styles.button}
-        start={start}
-        stop={stop}
-      />
+      <CatMotivationComponent inProgressStatus={inProgress} />
+      <Layout
+        // style={styles.stopwatchWrapper}
+        style={[
+          styles.stopwatchWrapper,
+          { justifyContent: inProgress ? 'flex-start' : 'center' },
+        ]}
+      >
+        <Clock interval={timer} style={styles.time} />
+        <StartStopButton
+          progress={inProgress}
+          style={styles.button}
+          start={start}
+          stop={stop}
+        />
+      </Layout>
     </Layout>
   );
 };
@@ -41,7 +51,6 @@ export default Stopwatch;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   time: {
@@ -50,5 +59,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 80,
+  },
+  stopwatchWrapper: {
+    flex: 2,
+    alignItems: 'center',
   },
 });

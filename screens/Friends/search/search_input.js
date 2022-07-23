@@ -2,6 +2,7 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
 import React from 'react';
 import fetchSearchResults from './fetch_search_results';
+import { default as theme } from '../../../custom-theme.json';
 
 const SearchInput = ({ userInput, setUserInput, setSearchResults }) => {
   const searchButton = (props) => (
@@ -19,6 +20,7 @@ const SearchInput = ({ userInput, setUserInput, setSearchResults }) => {
       value={userInput}
       onChangeText={(text) => setUserInput(text)}
       accessoryRight={searchButton}
+      selectionColor={theme['color-primary-300']}
     />
   );
 };
