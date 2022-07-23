@@ -42,11 +42,13 @@ export default Friends;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
+    alignContent: 'flex-start',
   },
   button: {
     margin: 4,
