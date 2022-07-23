@@ -10,7 +10,6 @@ const AddTaskModal = ({ visible, setVisible }) => {
   return (
     <Modal
       visible={visible}
-      onBackdropPress={() => setVisible(false)}
       backdropStyle={{ backgroundColor: '#000000', opacity: 0.5 }}
     >
       <Card style={styles.card}>
@@ -19,24 +18,27 @@ const AddTaskModal = ({ visible, setVisible }) => {
           placeholder="Enter your task here..."
           value={task}
           onChangeText={setTask}
-          selectionColor={'#4A3432'}
+          selectionColor={theme['color-primary-500']}
         />
-        <Button
-          onPress={() => {
-            if (task == '') {
-              Toast.show('Please enter a task.', {
-                duration: Toast.durations.SHORT,
-              });
-            } else {
-              storeTask(task);
-              setTask('');
-              setVisible(false);
-            }
-          }}
-          style={styles.addTaskButton}
-        >
-          Add Task
-        </Button>
+        <Layout style={{ flexDirection: 'row' }}>
+          <Button
+            onPress={() => {
+              if (task == '') {
+                Toast.show('Please enter a task.', {
+                  duration: Toast.durations.SHORT,
+                });
+              } else {
+                storeTask(task);
+                setTask('');
+                setVisible(false);
+              }
+            }}
+            style={styles.addTaskButton}
+          >
+            Add Task
+          </Button>
+          <Button onPress={() => setVisible(false)}>Close</Button>
+        </Layout>
       </Card>
     </Modal>
   );
@@ -57,5 +59,7 @@ const styles = StyleSheet.create({
   addTaskButton: {
     backgroundColor: theme['color-primary-300'],
     borderWidth: 0,
+    flex: 1,
+    marginRight: 10,
   },
 });
