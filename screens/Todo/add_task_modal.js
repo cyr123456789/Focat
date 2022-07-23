@@ -10,7 +10,8 @@ const AddTaskModal = ({ visible, setVisible }) => {
   return (
     <Modal
       visible={visible}
-      backdropStyle={{ backgroundColor: '#000000', opacity: 0.5 }}
+      onBackdropPress={() => setVisible(!visible)}
+      backdropStyle={styles.modalBackdrop}
     >
       <Card style={styles.card}>
         <TextInput
@@ -61,5 +62,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     flex: 1,
     marginRight: 10,
+  },
+  modalBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

@@ -12,6 +12,7 @@ const SearchFriendsModal = ({ visible, setVisible }) => {
     <Modal
       style={styles.container}
       visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
       backdropStyle={styles.modalBackdrop}
     >
       <Card>
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
     width: '65%',
   },
   modalBackdrop: {
-    backgroundColor: '#000000',
-    opacity: 0.5,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
