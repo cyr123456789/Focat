@@ -20,11 +20,12 @@ import ToggleComponent from './Components/toggle';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
-  const [isGroup, setIsGroup] = useState(false);
+  // const [isGroup, setIsGroup] = useState(false);
   // const [chatVisible, setChatVisible] = useState(false);
   // const [addVisible, setAddVisible] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [refresh, setRefresh] = useState(1);
+  const [catCash, setCatCash] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -107,6 +108,23 @@ const Timer = ({}) => {
     }, [])
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      if (isLoggedIn()) {
+        const unsubscribe = onSnapshot(
+          doc(firestore, 'users', auth.currentUser.uid),
+          (userDoc) => {
+            setCatCash(userDoc.data().cat_cash);
+          },
+          (error) => {
+            console.log(error.code);
+          }
+        );
+        return () => unsubscribe();
+      }
+    }, [])
+  );
+
   useEffect(() => {
     if (inProgress) {
       const interval = setInterval(() => {
@@ -169,9 +187,37 @@ const Timer = ({}) => {
       ]
     );
 
-  const toggleGroup = () => {
-    setIsGroup(!isGroup);
-  };
+  // const toggleGroup = () => {
+  //   setIsGroup(!isGroup);
+  // };
+
+  // let toggle;
+  // if (inProgress) {
+  //   toggle = <></>;
+  // } else {
+  //   toggle = (
+  //     <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
+  //       {isGroup ? 'Group' : 'Solo'}
+  //     </Toggle>
+  //   );
+  // }
+
+  // let slider;
+  // if (inProgress) {
+  //   slider = <></>;
+  // } else {
+  //   slider = (
+  //     <Slider
+  //       disabled={inProgress}
+  //       value={timer}
+  //       minimumValue={1000}
+  //       maximumValue={3600000}
+  //       step={1000}
+  //       onValueChange={(value) => setTimer(value)}
+  //       containerStyle={styles.slider}
+  //    />
+  //   );
+  // }
 
   // let button;
   // if (isGroup && !inProgress) {
@@ -204,6 +250,7 @@ const Timer = ({}) => {
 
   return (
     <Layout style={styles.container}>
+      <Text>{catCash + ' cat cash'}</Text>
       {/* <Modal visible={chatVisible}>
         <Card>
           <Text>chat here</Text>
@@ -216,11 +263,11 @@ const Timer = ({}) => {
           <Button onPress={() => setAddVisible(false)}>Close</Button>
         </Card>
       </Modal> */}
-      <ToggleComponent
+      {/* <ToggleComponent
         inProgressStatus={inProgress}
         isGroup={isGroup}
         toggleGroup={toggleGroup}
-      />
+      /> */}
       <CatMotivationComponent inProgressStatus={inProgress} />
       <Layout style={styles.timerWrapper}>
         <Clock interval={timer} style={styles.time} />
