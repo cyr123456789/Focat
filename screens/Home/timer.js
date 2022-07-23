@@ -26,11 +26,12 @@ import { auth, firestore } from '../../firebase';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
-  const [isGroup, setIsGroup] = useState(false);
+  // const [isGroup, setIsGroup] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
   const [addVisible, setAddVisible] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [refresh, setRefresh] = useState(1);
+  const [catCash, setCatCash] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -113,6 +114,23 @@ const Timer = ({}) => {
     }, [])
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      if (isLoggedIn()) {
+        const unsubscribe = onSnapshot(
+          doc(firestore, 'users', auth.currentUser.uid),
+          (userDoc) => {
+            setCatCash(userDoc.data().cat_cash);
+          },
+          (error) => {
+            console.log(error.code);
+          }
+        );
+        return () => unsubscribe();
+      }
+    }, [])
+  );
+
   useEffect(() => {
     if (inProgress) {
       const interval = setInterval(() => {
@@ -163,28 +181,32 @@ const Timer = ({}) => {
     );
 
   const incompleteAlert = () =>
-    Alert.alert('Session Incomplete', 'Complete session entirely to get cat cash.', [
-      {
-        text: 'Continue',
-        onPress: () => setRefresh((x) => x + 1),
-        style: 'cancel',
-      },
-    ]);
-
-  const toggleGroup = () => {
-    setIsGroup(!isGroup);
-  };
-
-  let toggle;
-  if (inProgress) {
-    toggle = <></>;
-  } else {
-    toggle = (
-      <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
-        {isGroup ? 'Group' : 'Solo'}
-      </Toggle>
+    Alert.alert(
+      'Session Incomplete',
+      'Complete session entirely to get cat cash.',
+      [
+        {
+          text: 'Continue',
+          onPress: () => setRefresh((x) => x + 1),
+          style: 'cancel',
+        },
+      ]
     );
-  }
+
+  // const toggleGroup = () => {
+  //   setIsGroup(!isGroup);
+  // };
+
+  // let toggle;
+  // if (inProgress) {
+  //   toggle = <></>;
+  // } else {
+  //   toggle = (
+  //     <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
+  //       {isGroup ? 'Group' : 'Solo'}
+  //     </Toggle>
+  //   );
+  // }
 
   let slider;
   if (inProgress) {
@@ -204,36 +226,37 @@ const Timer = ({}) => {
   }
 
   let button;
-  if (isGroup && !inProgress) {
-    button = (
-      <ButtonGroup>
-        <Button style={styles.button} onPress={() => setChatVisible(true)}>
-          Chat
-        </Button>
-        <StartStopButton
-          progress={inProgress}
-          style={styles.button}
-          start={start}
-          stop={stop}
-        />
-        <Button style={styles.button} onPress={() => setAddVisible(true)}>
-          Add
-        </Button>
-      </ButtonGroup>
-    );
-  } else {
-    button = (
-      <StartStopButton
-        progress={inProgress}
-        style={styles.button}
-        start={start}
-        stop={stop}
-      />
-    );
-  }
+  // if (isGroup && !inProgress) {
+  //   button = (
+  //     <ButtonGroup>
+  //       <Button style={styles.button} onPress={() => setChatVisible(true)}>
+  //         Chat
+  //       </Button>
+  //       <StartStopButton
+  //         progress={inProgress}
+  //         style={styles.button}
+  //         start={start}
+  //         stop={stop}
+  //       />
+  //       <Button style={styles.button} onPress={() => setAddVisible(true)}>
+  //         Add
+  //       </Button>
+  //     </ButtonGroup>
+  //   );
+  // } else {
+  button = (
+    <StartStopButton
+      progress={inProgress}
+      style={styles.button}
+      start={start}
+      stop={stop}
+    />
+  );
+  // }
 
   return (
     <Layout style={styles.container}>
+      <Text>{catCash + ' cat cash'}</Text>
       <Modal visible={chatVisible}>
         <Card>
           <Text>chat here</Text>
@@ -246,7 +269,7 @@ const Timer = ({}) => {
           <Button onPress={() => setAddVisible(false)}>Close</Button>
         </Card>
       </Modal>
-      {toggle}
+      {/* {toggle} */}
       <Clock interval={timer} style={styles.time}></Clock>
       {slider}
       {button}
