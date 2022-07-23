@@ -27,6 +27,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator
       initialRouteName="Home"
       drawerContent={(props) => <DrawerContent {...props} />}
+      useLegacyImplementation={true}
     >
       <Drawer.Screen
         name="Home"
