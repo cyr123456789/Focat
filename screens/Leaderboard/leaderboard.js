@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Image } from 'react-native';
-import { Layout, Text, Button, List, ListItem } from '@ui-kitten/components';
+import {
+  Layout,
+  Text,
+  Button,
+  List,
+  ListItem,
+  Card,
+} from '@ui-kitten/components';
 import { auth, firestore } from '../../firebase';
 import {
   collection,
@@ -48,7 +55,9 @@ const Leaderboard = () => {
   };
 
   const renderItemAccessory = (item) => {
-    if (item.alreadyAdded) {
+    if (item.id === auth.currentUser.uid) {
+      return <></>;
+    } else if (item.alreadyAdded) {
       return (
         <Button
           size="medium"
@@ -101,24 +110,28 @@ const Leaderboard = () => {
   };
 
   const renderItem = ({ item }) => (
-    <ListItem
-      title={`${item.username} `}
-      description={
+    <Card>
+      <Layout style={styles.container}>
+        <Layout style={{ width: '30%' }}>
+          <Text>{item.username} </Text>
+        </Layout>
+
         <Layout
           style={{
+            flex: 1,
             flexDirection: 'row',
+            justifyContent: 'center',
           }}
         >
           <Image
-            style={{ width: 20, height: 20 }}
+            style={{ width: 20, height: 20, marginRight: 5 }}
             source={require('../../assets/catcash.png')}
           ></Image>
           <Text>{item.cat_cash}</Text>
         </Layout>
-      }
-      accessoryRight={() => renderItemAccessory(item)}
-      style={{ margin: 5 }}
-    />
+        <Layout style={{ width: '30%' }}>{renderItemAccessory(item)}</Layout>
+      </Layout>
+    </Card>
   );
 
   return (
@@ -132,6 +145,8 @@ export default Leaderboard;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
   },
   pendingButton: {
