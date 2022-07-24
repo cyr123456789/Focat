@@ -8,6 +8,7 @@ import { Button, Input, Layout, Icon } from '@ui-kitten/components';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
 import { storeUsername } from '../../utils/usernameStorage';
+import { default as theme } from '../../custom-theme.json';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -101,6 +102,7 @@ const Signup = () => {
           onChangeText={setUsername}
           accessoryLeft={(props) => <Icon name="person-outline" {...props} />}
           testID={'usernameInput'}
+          selectionColor={theme['color-primary-300']}
         />
         <EmailTextInput
           email={email}
@@ -122,6 +124,7 @@ const Signup = () => {
           secureTextEntry={secureTextEntry}
           accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
           testID={'confirmPasswordInput'}
+          selectionColor={theme['color-primary-300']}
         />
         <Button style={styles.button} onPress={handleSignup}>
           Sign Up

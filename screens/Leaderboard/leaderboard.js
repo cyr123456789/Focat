@@ -60,7 +60,7 @@ const Leaderboard = () => {
     } else if (item.alreadyAdded) {
       return (
         <Button
-          size="medium"
+          size="small"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
@@ -81,14 +81,14 @@ const Leaderboard = () => {
       );
     } else if (item.alreadyFriends) {
       return (
-        <Button disabled={true} size="medium">
+        <Button disabled={true} size="small">
           Added
         </Button>
       );
     } else {
       return (
         <Button
-          size="medium"
+          size="small"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
