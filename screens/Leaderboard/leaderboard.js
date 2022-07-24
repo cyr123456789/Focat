@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Layout, Text, Button, List, ListItem } from '@ui-kitten/components';
+import { StyleSheet, Image } from 'react-native';
+import {
+  Layout,
+  Text,
+  Button,
+  List,
+  ListItem,
+  Card,
+} from '@ui-kitten/components';
 import { auth, firestore } from '../../firebase';
 import {
   collection,
@@ -14,6 +21,7 @@ import {
   orderBy,
   limit,
 } from 'firebase/firestore';
+import { default as theme } from '../../custom-theme.json';
 
 const Leaderboard = () => {
   const [data, setData] = useState([]);
@@ -47,10 +55,12 @@ const Leaderboard = () => {
   };
 
   const renderItemAccessory = (item) => {
-    if (item.alreadyAdded) {
+    if (item.id === auth.currentUser.uid) {
+      return <></>;
+    } else if (item.alreadyAdded) {
       return (
         <Button
-          size="tiny"
+          size="small"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
@@ -64,20 +74,21 @@ const Leaderboard = () => {
             fetchLeaderboardData();
             console.log('unadd');
           }}
+          style={styles.pendingButton}
         >
           Pending
         </Button>
       );
     } else if (item.alreadyFriends) {
       return (
-        <Button disabled={true} size="tiny">
+        <Button disabled={true} size="small">
           Added
         </Button>
       );
     } else {
       return (
         <Button
-          size="tiny"
+          size="small"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
@@ -99,16 +110,32 @@ const Leaderboard = () => {
   };
 
   const renderItem = ({ item }) => (
-    <ListItem
-      title={`${item.username} `}
-      description={`${item.cat_cash} `}
-      accessoryRight={() => renderItemAccessory(item)}
-    />
+    <Card>
+      <Layout style={styles.container}>
+        <Layout style={{ width: '30%' }}>
+          <Text>{item.username} </Text>
+        </Layout>
+
+        <Layout
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Image
+            style={{ width: 20, height: 20, marginRight: 5 }}
+            source={require('../../assets/catcash.png')}
+          ></Image>
+          <Text>{item.cat_cash}</Text>
+        </Layout>
+        <Layout style={{ width: '30%' }}>{renderItemAccessory(item)}</Layout>
+      </Layout>
+    </Card>
   );
 
   return (
     <Layout style={styles.container}>
-      <Text style={styles.text}>Top 100 Richest Users</Text>
       <List data={data} renderItem={renderItem} />
     </Layout>
   );
@@ -118,9 +145,12 @@ export default Leaderboard;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
   },
-  text: {
-    textAlign: 'center',
+  pendingButton: {
+    backgroundColor: theme['color-primary-400'],
+    borderWidth: 0,
   },
 });

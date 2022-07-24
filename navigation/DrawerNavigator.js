@@ -51,11 +51,12 @@ const DrawerNavigator = () => {
       ) : (
         <></>
       )}
-      <Drawer.Screen 
-        name="Leaderboard" 
-        component={Leaderboard} 
+      <Drawer.Screen
+        name="Top 100 Richest Users"
+        component={Leaderboard}
         options={{
           drawerActiveTintColor: activeScreenColor,
+          drawerLabel: 'Leaderboard',
         }}
       />
     </Drawer.Navigator>
