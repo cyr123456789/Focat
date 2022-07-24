@@ -5,6 +5,7 @@ import Task from './task';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getTasks } from '../../utils/toDoListStorage';
 import AddTaskModal from './add_task_modal';
+import { default as theme } from '../../custom-theme.json';
 
 const Todo = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -41,7 +42,7 @@ const Todo = () => {
         <Icon
           name={'add-circle'}
           size={70}
-          color="#E07E3D"
+          color={theme['color-primary-300']}
           onPress={() => setModalVisible(true)}
         />
       </TouchableOpacity>

@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
 import React from 'react';
+import { default as theme } from '../custom-theme.json';
 
 export default function PasswordTextInput({
   password,
@@ -28,6 +29,7 @@ export default function PasswordTextInput({
       secureTextEntry={secureTextEntry}
       accessoryRight={renderEyeIcon}
       accessoryLeft={(props) => <Icon name="lock-outline" {...props} />}
+      selectionColor={theme['color-primary-300']}
     />
   );
 }
@@ -35,5 +37,6 @@ export default function PasswordTextInput({
 const styles = StyleSheet.create({
   input: {
     marginVertical: 10,
+    width: 300,
   },
 });

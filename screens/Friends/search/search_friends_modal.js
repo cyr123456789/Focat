@@ -9,7 +9,12 @@ const SearchFriendsModal = ({ visible, setVisible }) => {
   const [searchResults, setSearchResults] = useState([]);
 
   return (
-    <Modal style={styles.container} visible={visible}>
+    <Modal
+      style={styles.container}
+      visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
+      backdropStyle={styles.modalBackdrop}
+    >
       <Card>
         <SearchInput
           userInput={userInput}
@@ -32,5 +37,8 @@ export default SearchFriendsModal;
 const styles = StyleSheet.create({
   container: {
     width: '65%',
+  },
+  modalBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

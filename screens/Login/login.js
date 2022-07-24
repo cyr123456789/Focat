@@ -43,7 +43,7 @@ const Login = ({ navigation }) => {
 
   const navigateHome = () => {
     navigation.replace('StackHome');
-  }
+  };
 
   return (
     <Layout style={styles.container}>

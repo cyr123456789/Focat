@@ -1,15 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Alert } from 'react-native';
-import {
-  Layout,
-  Toggle,
-  Modal,
-  Text,
-  Button,
-  Card,
-  ButtonGroup,
-} from '@ui-kitten/components';
-import { Slider } from '@miblanchard/react-native-slider';
+import { Layout } from '@ui-kitten/components';
 import Clock from './clock';
 import StartStopButton from './start_stop_button';
 import isLoggedIn from '../../utils/isLoggedIn';
@@ -23,12 +14,15 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { auth, firestore } from '../../firebase';
+import CatMotivationComponent from './Components/cat_motivation';
+import SliderComponent from './Components/slider';
+import ToggleComponent from './Components/toggle';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
   // const [isGroup, setIsGroup] = useState(false);
-  const [chatVisible, setChatVisible] = useState(false);
-  const [addVisible, setAddVisible] = useState(false);
+  // const [chatVisible, setChatVisible] = useState(false);
+  // const [addVisible, setAddVisible] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [refresh, setRefresh] = useState(1);
   const [catCash, setCatCash] = useState(0);
@@ -208,24 +202,24 @@ const Timer = ({}) => {
   //   );
   // }
 
-  let slider;
-  if (inProgress) {
-    slider = <></>;
-  } else {
-    slider = (
-      <Slider
-        disabled={inProgress}
-        value={timer}
-        minimumValue={1000}
-        maximumValue={3600000}
-        step={1000}
-        onValueChange={(value) => setTimer(value)}
-        containerStyle={styles.slider}
-      />
-    );
-  }
+  // let slider;
+  // if (inProgress) {
+  //   slider = <></>;
+  // } else {
+  //   slider = (
+  //     <Slider
+  //       disabled={inProgress}
+  //       value={timer}
+  //       minimumValue={1000}
+  //       maximumValue={3600000}
+  //       step={1000}
+  //       onValueChange={(value) => setTimer(value)}
+  //       containerStyle={styles.slider}
+  //    />
+  //   );
+  // }
 
-  let button;
+  // let button;
   // if (isGroup && !inProgress) {
   //   button = (
   //     <ButtonGroup>
@@ -244,35 +238,51 @@ const Timer = ({}) => {
   //     </ButtonGroup>
   //   );
   // } else {
-  button = (
-    <StartStopButton
-      progress={inProgress}
-      style={styles.button}
-      start={start}
-      stop={stop}
-    />
-  );
+  //   button = (
+  //     <StartStopButton
+  //       progress={inProgress}
+  //       style={styles.button}
+  //       start={start}
+  //       stop={stop}
+  //     />
+  //   );
   // }
 
   return (
     <Layout style={styles.container}>
       <Text>{catCash + ' cat cash'}</Text>
-      <Modal visible={chatVisible}>
+      {/* <Modal visible={chatVisible}>
         <Card>
           <Text>chat here</Text>
           <Button onPress={() => setChatVisible(false)}>Close</Button>
         </Card>
-      </Modal>
-      <Modal visible={addVisible}>
+      </Modal> */}
+      {/* <Modal visible={addVisible}>
         <Card>
           <Text>Friend list here</Text>
           <Button onPress={() => setAddVisible(false)}>Close</Button>
         </Card>
-      </Modal>
-      {/* {toggle} */}
-      <Clock interval={timer} style={styles.time}></Clock>
-      {slider}
-      {button}
+      </Modal> */}
+      {/* <ToggleComponent
+        inProgressStatus={inProgress}
+        isGroup={isGroup}
+        toggleGroup={toggleGroup}
+      /> */}
+      <CatMotivationComponent inProgressStatus={inProgress} />
+      <Layout style={styles.timerWrapper}>
+        <Clock interval={timer} style={styles.time} />
+        <SliderComponent
+          inProgressStatus={inProgress}
+          timer={timer}
+          setTimer={setTimer}
+        />
+        <StartStopButton
+          progress={inProgress}
+          style={styles.button}
+          start={start}
+          stop={stop}
+        />
+      </Layout>
     </Layout>
   );
 };
@@ -282,7 +292,6 @@ export default Timer;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   slider: {
@@ -292,8 +301,13 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 76,
     textAlign: 'center',
+    marginBottom: 10,
   },
   button: {
     width: 80,
+  },
+  timerWrapper: {
+    flex: 2,
+    alignItems: 'center',
   },
 });

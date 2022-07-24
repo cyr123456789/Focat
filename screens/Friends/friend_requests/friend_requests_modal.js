@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { Modal, Button, Card } from '@ui-kitten/components';
+import { Modal, Button, Card, Text } from '@ui-kitten/components';
 import { FriendRequestsList } from './friend_requests_list';
 import fetchFriendRequests from './fetch_friend_requests';
 import { useFocusEffect } from '@react-navigation/native';
@@ -29,14 +29,23 @@ const FriendRequestsModal = ({ visible, setVisible, setFriendListData }) => {
   );
 
   return (
-    <Modal style={styles.container} visible={visible}>
+    <Modal
+      style={styles.container}
+      visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
+      backdropStyle={styles.modalBackdrop}
+    >
       <Card>
-        <FriendRequestsList
-          friendRequests={friendRequests}
-          setFriendRequests={setFriendRequests}
-          setFriendListData={setFriendListData}
-          setVisible={setVisible}
-        />
+        {friendRequests.length ? (
+          <FriendRequestsList
+            friendRequests={friendRequests}
+            setFriendRequests={setFriendRequests}
+            setFriendListData={setFriendListData}
+            setVisible={setVisible}
+          />
+        ) : (
+          <Text style={styles.text}>You have no friend request.</Text>
+        )}
         <Button onPress={() => setVisible(false)}>Close</Button>
       </Card>
     </Modal>
@@ -48,5 +57,11 @@ export default FriendRequestsModal;
 const styles = StyleSheet.create({
   container: {
     width: '65%',
+  },
+  text: {
+    marginVertical: 10,
+  },
+  modalBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

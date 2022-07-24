@@ -1,38 +1,45 @@
 import { StyleSheet, TextInput } from 'react-native';
 import React, { useState } from 'react';
-import { Modal, Card, Button } from '@ui-kitten/components';
+import { Modal, Card, Button, Layout } from '@ui-kitten/components';
 import { storeTask } from '../../utils/toDoListStorage';
 import Toast from 'react-native-root-toast';
+import { default as theme } from '../../custom-theme.json';
 
 const AddTaskModal = ({ visible, setVisible }) => {
   const [task, setTask] = useState('');
   return (
-    <Modal visible={visible}>
+    <Modal
+      visible={visible}
+      onBackdropPress={() => setVisible(!visible)}
+      backdropStyle={styles.modalBackdrop}
+    >
       <Card style={styles.card}>
         <TextInput
           style={styles.textInputBox}
-          placeholder="Enter your task here"
+          placeholder="Enter your task here..."
           value={task}
           onChangeText={setTask}
-          selectionColor={'#4A3432'}
+          selectionColor={theme['color-primary-500']}
         />
-        <Button
-          onPress={() => {
-            if (task == '') {
-              Toast.show('Please enter a task.', {
-                duration: Toast.durations.SHORT,
-              });
-            } else {
-              storeTask(task);
-              setTask('');
-              setVisible(false);
-            }
-          }}
-          style={styles.addTaskButton}
-        >
-          Add Task
-        </Button>
-        <Button onPress={() => setVisible(false)}>Close</Button>
+        <Layout style={{ flexDirection: 'row' }}>
+          <Button
+            onPress={() => {
+              if (task == '') {
+                Toast.show('Please enter a task.', {
+                  duration: Toast.durations.SHORT,
+                });
+              } else {
+                storeTask(task);
+                setTask('');
+                setVisible(false);
+              }
+            }}
+            style={styles.addTaskButton}
+          >
+            Add Task
+          </Button>
+          <Button onPress={() => setVisible(false)}>Close</Button>
+        </Layout>
       </Card>
     </Modal>
   );
@@ -48,11 +55,15 @@ const styles = StyleSheet.create({
     height: 50,
     paddingHorizontal: 20,
     marginVertical: 10,
-    backgroundColor: '#EBE5D5',
+    backgroundColor: theme['color-primary-200'],
   },
   addTaskButton: {
-    backgroundColor: '#E07E3D',
+    backgroundColor: theme['color-primary-300'],
     borderWidth: 0,
-    marginBottom: 10,
+    flex: 1,
+    marginRight: 10,
+  },
+  modalBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

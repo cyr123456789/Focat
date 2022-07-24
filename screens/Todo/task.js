@@ -2,13 +2,18 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { removeTask, toggleDoneStatus } from '../../utils/toDoListStorage';
+import { default as theme } from '../../custom-theme.json';
 
 const Task = (props) => {
   return (
     <View
       style={[
         styles.taskWrapper,
-        { backgroundColor: props.isDoneStatus ? '#8F6C49' : '#EBE5D5' },
+        {
+          backgroundColor: props.isDoneStatus
+            ? theme['color-primary-400']
+            : theme['color-primary-200'],
+        },
       ]}
     >
       <TouchableOpacity
@@ -18,7 +23,11 @@ const Task = (props) => {
         <Icon
           name={'delete-outline'}
           size={40}
-          color={props.isDoneStatus ? '#FCFCF0' : '#E07E3D'}
+          color={
+            props.isDoneStatus
+              ? theme['color-primary-100']
+              : theme['color-primary-300']
+          }
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -29,7 +38,9 @@ const Task = (props) => {
       >
         <Text
           style={{
-            color: props.isDoneStatus ? '#FCFCF0' : '#4A3432',
+            color: props.isDoneStatus
+              ? theme['color-primary-100']
+              : theme['color-primary-500'],
             textDecorationLine: props.isDoneStatus ? 'line-through' : 'none',
           }}
         >

@@ -75,7 +75,11 @@ export const FriendsList = ({
   };
 
   if (friendListData.length == 0) {
-    return <Text>You have no friends lol</Text>;
+    return (
+      <Text style={styles.noFriendsText}>
+        You have no friends. Add them now!
+      </Text>
+    );
   } else {
     return (
       <List
@@ -97,5 +101,8 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 4,
+  },
+  noFriendsText: {
+    margin: 20,
   },
 });
