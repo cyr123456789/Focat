@@ -17,6 +17,7 @@ const fetchFriendListData = async ({ temp, setTemp, setFriendListData }) => {
             setFriendListData((oldData) => [
               ...oldData,
               {
+                id: userId,
                 username: username,
                 current_session: res === '' ? 'NIL' : res,
               },

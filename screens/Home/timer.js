@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Alert } from 'react-native';
-import { Layout } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import Clock from './clock';
 import StartStopButton from './start_stop_button';
 import isLoggedIn from '../../utils/isLoggedIn';
