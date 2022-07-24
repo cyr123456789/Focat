@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { Layout, Text, Button, List, ListItem } from '@ui-kitten/components';
 import { auth, firestore } from '../../firebase';
 import {
@@ -14,6 +14,7 @@ import {
   orderBy,
   limit,
 } from 'firebase/firestore';
+import { default as theme } from '../../custom-theme.json';
 
 const Leaderboard = () => {
   const [data, setData] = useState([]);
@@ -50,7 +51,7 @@ const Leaderboard = () => {
     if (item.alreadyAdded) {
       return (
         <Button
-          size="tiny"
+          size="medium"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
@@ -64,20 +65,21 @@ const Leaderboard = () => {
             fetchLeaderboardData();
             console.log('unadd');
           }}
+          style={styles.pendingButton}
         >
           Pending
         </Button>
       );
     } else if (item.alreadyFriends) {
       return (
-        <Button disabled={true} size="tiny">
+        <Button disabled={true} size="medium">
           Added
         </Button>
       );
     } else {
       return (
         <Button
-          size="tiny"
+          size="medium"
           onPress={() => {
             const currentUser = auth.currentUser.uid;
             const sent = doc(firestore, 'users', currentUser);
@@ -101,14 +103,26 @@ const Leaderboard = () => {
   const renderItem = ({ item }) => (
     <ListItem
       title={`${item.username} `}
-      description={`${item.cat_cash} `}
+      description={
+        <Layout
+          style={{
+            flexDirection: 'row',
+          }}
+        >
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={require('../../assets/catcash.png')}
+          ></Image>
+          <Text>{item.cat_cash}</Text>
+        </Layout>
+      }
       accessoryRight={() => renderItemAccessory(item)}
+      style={{ margin: 5 }}
     />
   );
 
   return (
     <Layout style={styles.container}>
-      <Text style={styles.text}>Top 100 Richest Users</Text>
       <List data={data} renderItem={renderItem} />
     </Layout>
   );
@@ -120,7 +134,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
   },
-  text: {
-    textAlign: 'center',
+  pendingButton: {
+    backgroundColor: theme['color-primary-400'],
+    borderWidth: 0,
   },
 });

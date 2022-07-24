@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Alert } from 'react-native';
-import { Layout, Text } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import Clock from './clock';
 import StartStopButton from './start_stop_button';
 import isLoggedIn from '../../utils/isLoggedIn';
@@ -16,7 +16,8 @@ import {
 import { auth, firestore } from '../../firebase';
 import CatMotivationComponent from './Components/cat_motivation';
 import SliderComponent from './Components/slider';
-import ToggleComponent from './Components/toggle';
+// import ToggleComponent from './Components/toggle';
+import CatCash from './Components/cat_cash';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
@@ -250,7 +251,7 @@ const Timer = ({}) => {
 
   return (
     <Layout style={styles.container}>
-      <Text>{catCash + ' cat cash'}</Text>
+      <CatCash catCash={catCash} />
       {/* <Modal visible={chatVisible}>
         <Card>
           <Text>chat here</Text>
@@ -269,7 +270,12 @@ const Timer = ({}) => {
         toggleGroup={toggleGroup}
       /> */}
       <CatMotivationComponent inProgressStatus={inProgress} />
-      <Layout style={styles.timerWrapper}>
+      <Layout
+        style={[
+          styles.timerWrapper,
+          { justifyContent: inProgress ? 'flex-start' : 'center' },
+        ]}
+      >
         <Clock interval={timer} style={styles.time} />
         <SliderComponent
           inProgressStatus={inProgress}
