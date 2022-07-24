@@ -11,7 +11,7 @@ import { StyleSheet } from 'react-native';
 import fetchFriendListData from './fetch_friend_list_data';
 import joinFriendSession from './join_friend_session';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { onSnapshot, doc } from 'firebase/firestore';
+import { onSnapshot, doc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { auth, firestore } from '../../../firebase';
 import isLoggedIn from '../../../utils/isLoggedIn';
 
@@ -56,8 +56,22 @@ export const FriendsList = ({
         >
           Join
         </Button>
-        <Button style={styles.button} size="small">
-          View
+        <Button
+          style={styles.button}
+          size="small"
+          onPress={() => {
+            const userDoc = doc(firestore, 'users', auth.currentUser.uid);
+            const friendDoc = doc(firestore, 'users', props.id);
+            updateDoc(userDoc, {
+              friends: arrayRemove(props.id),
+            });
+            updateDoc(friendDoc, {
+              friends: arrayRemove(auth.currentUser.uid),
+            });
+            fetchFriendListData({ temp, setTemp, setFriendListData });
+          }}
+        >
+          Delete
         </Button>
       </Layout>
     );
