@@ -51,14 +51,18 @@ const DrawerNavigator = () => {
       ) : (
         <></>
       )}
-      <Drawer.Screen
-        name="Top 100 Richest Users"
-        component={Leaderboard}
-        options={{
-          drawerActiveTintColor: activeScreenColor,
-          drawerLabel: 'Leaderboard',
-        }}
-      />
+      {isLoggedIn ? (
+        <Drawer.Screen
+          name="Top 100 Richest Users"
+          component={Leaderboard}
+          options={{
+            drawerActiveTintColor: activeScreenColor,
+            drawerLabel: 'Leaderboard',
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Drawer.Navigator>
   );
 };
