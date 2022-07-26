@@ -1,9 +1,5 @@
 # Focat
 
-## Team Name
-
-Focat
-
 ## Links to the project materials
 
 [APK file](https://expo.dev/@venuslimm/Focat), [Poster](https://drive.google.com/file/d/1yqlfmytt7FJdj57hl4IUf7sWteaJEKGw/view), [Video](https://drive.google.com/file/d/1_b5Gn_Acp0OYRCcJlNI6h3xiLA0Nw8yl/view?usp=sharing)
@@ -60,22 +56,6 @@ Instead of planting trees like in Forest, Focat will have users each raise a cat
 - Users can add/remove friends in their friends list.
 - Users will be able to see which of their friends are currently in a session and will be able
   to join their friend's session directly from this page.
-
-## User Stories
-
-1. As a student who uses Forest, I wish it has many more features that cater to my needs and streamline my study process.
-
-2. As a student who gets distracted by the social media platforms and games on my phone, I want to be able to restrict myself from using applications that I am addicted to and be rewarded for being productive.
-
-3. As a student who does not have anyone to study with at home, I want to be able to study with my friends and have a character that is virtually there to study with me.
-
-4. As a student who gets too engrossed when studying, I want to be able to set a stopwatch to remind myself to take a break after every study session and not overwork myself.
-
-5. As a student who wishes to know how much time I spend on each module, I want to be able to time myself and give this duration a tag to indicate the module I was studying. This can help me to keep track of which are the modules I should focus more on.
-
-6. As a student who enjoys using software to keep track of my study progress, I want to be able to keep track of all my study progress on one single application.
-
-7. As a user of Forest but not a huge fan of trees, I would like a similar app with a different theme and more functionality.
 
 ## Design
 
@@ -301,31 +281,21 @@ that the user interface does not change unexpectedly.
 
 For the Login screen, the unit tests expect the login button and button that directs the user to the Sign-
 Up screen to render as expected. Moreover, the tests expect the email and password input fields to be
-
 updated to the correct values when values are entered. The unit tests written for the Sign-up screen are
 similar to the unit tests written for the Login screen. These tests are important because the user must be
 able to login or sign up without any issues caused by the UI since logging in and signing up are the first
 few steps performed by the user when they use this app.
+
 Implementing this was challenging because of the slightly steep learning curve to software testing. It was
 also difficult to debug the errors as there was no user interface to refer to. However, with the help of
 logging, debugging was much easier.
+
 Below is a screenshot of the results from running the unit test. The test failed because the current
 components rendered are different from the snapshot that was saved previously. We were able to pass
-all the tests after we updated the snapshots using [npm test -- -u].
-![alt text]()
-![alt text]()
-
-### User Testing
-
-User Testing was conducted after the app is completed for Milestone 3. Users were given instructions to
-install Expo Go on their Android phones and they were also provided with the Expo link to access the Focat
-app. After testing the app, they input their feedbacks and suggestions onto a Google Form provided by us
-and below are some of the findings.
+all the tests after we updated the snapshots using npm test -- -u.
 
 ![alt text]()
-
-A total of 9 users have tested our application and above are their demographics, with 66.7% of them
-currently studying in university, 22.2% of them working, and 11.1% of them in tertiary education.
+![alt text]()
 
 ## Timeline
 
