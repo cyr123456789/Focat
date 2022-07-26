@@ -293,8 +293,7 @@ Below is a screenshot of the results from running the unit test. The test failed
 components rendered are different from the snapshot that was saved previously. We were able to pass
 all the tests after we updated the snapshots using npm test -- -u.
 
-![alt text]()
-![alt text]()
+![alt text](../assets/tests/unit_testing.png?raw=true)
 
 ## Timeline
 
