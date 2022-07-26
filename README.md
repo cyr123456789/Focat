@@ -78,7 +78,6 @@ the documents and keep the number of keys as few as possible. This is not as sca
 grow larger, the document might take a longer time to be retrieved. However, this allows us to easily
 setup and streamline our data structure.
 
-8
 The User Id collection is stored in Firebase Authentication. When a user signs up on Focat, a document,
 consisting of the userid, email, and password, will be created in Firebase Authentication. The userid is
 used to link the User Id collection in Firebase Authentication with the User collection in Firestore
