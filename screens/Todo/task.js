@@ -1,40 +1,40 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { removeTask, toggleDoneStatus } from '../../utils/toDoListStorage';
+import EditTaskModal from './Modals/edit_task_modal';
+import DeleteTaskModal from './Modals/delete_task_modal';
+import { toggleDoneStatus } from '../../utils/toDoListStorage';
 import { default as theme } from '../../custom-theme.json';
 
 const Task = (props) => {
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
+
   return (
-    <View
-      style={[
-        styles.taskWrapper,
-        {
-          backgroundColor: props.isDoneStatus
-            ? theme['color-primary-400']
-            : theme['color-primary-200'],
-        },
-      ]}
-    >
-      <TouchableOpacity
-        style={styles.delete}
-        onPress={() => removeTask(props.keyVal)}
-      >
-        <Icon
-          name={'delete-outline'}
-          size={40}
-          color={
-            props.isDoneStatus
-              ? theme['color-primary-100']
-              : theme['color-primary-300']
-          }
-        />
-      </TouchableOpacity>
+    <View style={styles.taskWrapper}>
+      <EditTaskModal
+        visible={isEditModalVisible}
+        setVisible={setEditModalVisible}
+        keyVal={props.keyVal}
+        task={props.taskName}
+      />
+      <DeleteTaskModal
+        visible={isDeleteModalVisible}
+        setVisible={setDeleteModalVisible}
+        keyVal={props.keyVal}
+      />
       <TouchableOpacity
         onPress={() => {
           toggleDoneStatus(props.keyVal);
         }}
-        style={styles.taskTouchable}
+        style={[
+          styles.taskTouchable,
+          {
+            backgroundColor: props.isDoneStatus
+              ? theme['color-primary-400']
+              : theme['color-primary-200'],
+          },
+        ]}
       >
         <Text
           style={{
@@ -47,6 +47,20 @@ const Task = (props) => {
           {props.taskName}
         </Text>
       </TouchableOpacity>
+      <Icon
+        name={'edit'}
+        size={30}
+        color={theme['color-primary-500']}
+        onPress={() => setEditModalVisible(true)}
+        style={styles.button}
+      />
+      <Icon
+        name={'delete'}
+        size={30}
+        color={theme['color-primary-300']}
+        onPress={() => setDeleteModalVisible(true)}
+        style={styles.button}
+      />
     </View>
   );
 };
@@ -57,18 +71,19 @@ const styles = StyleSheet.create({
   taskWrapper: {
     flexDirection: 'row',
     borderRadius: 10,
-    height: 60,
-    paddingHorizontal: 10,
+    alignSelf: 'flex-start',
     marginVertical: 10,
-  },
-  delete: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   taskTouchable: {
     justifyContent: 'center',
     flex: 5,
-    marginLeft: 10,
+    paddingHorizontal: 15,
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 7,
+    paddingVertical: 10,
+    marginLeft: 5,
   },
 });

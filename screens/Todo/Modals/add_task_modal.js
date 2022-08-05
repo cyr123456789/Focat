@@ -1,9 +1,10 @@
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { Modal, Card, Button, Layout } from '@ui-kitten/components';
-import { storeTask } from '../../utils/toDoListStorage';
 import Toast from 'react-native-root-toast';
-import { default as theme } from '../../custom-theme.json';
+import { Modal, Card, Button, Layout } from '@ui-kitten/components';
+import ActionButton from '../Components/action_button_for_modal';
+import ModalTextInput from '../Components/textinput_for_modal';
+import { storeTask } from '../../../utils/toDoListStorage';
 
 const AddTaskModal = ({ visible, setVisible }) => {
   const [task, setTask] = useState('');
@@ -14,16 +15,10 @@ const AddTaskModal = ({ visible, setVisible }) => {
       backdropStyle={styles.modalBackdrop}
     >
       <Card style={styles.card}>
-        <TextInput
-          style={styles.textInputBox}
-          placeholder="Enter your task here..."
-          value={task}
-          onChangeText={setTask}
-          selectionColor={theme['color-primary-500']}
-        />
+        <ModalTextInput task={task} setTask={setTask} />
         <Layout style={{ flexDirection: 'row' }}>
-          <Button
-            onPress={() => {
+          <ActionButton
+            actionFn={() => {
               if (task == '') {
                 Toast.show('Please enter a task.', {
                   duration: Toast.durations.SHORT,
@@ -34,10 +29,8 @@ const AddTaskModal = ({ visible, setVisible }) => {
                 setVisible(false);
               }
             }}
-            style={styles.addTaskButton}
-          >
-            Add Task
-          </Button>
+            action="Add Task"
+          />
           <Button onPress={() => setVisible(false)}>Close</Button>
         </Layout>
       </Card>
@@ -50,18 +43,6 @@ export default AddTaskModal;
 const styles = StyleSheet.create({
   card: {
     width: 300,
-  },
-  textInputBox: {
-    height: 50,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    backgroundColor: theme['color-primary-200'],
-  },
-  addTaskButton: {
-    backgroundColor: theme['color-primary-300'],
-    borderWidth: 0,
-    flex: 1,
-    marginRight: 10,
   },
   modalBackdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
