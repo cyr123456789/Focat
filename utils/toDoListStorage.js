@@ -95,4 +95,30 @@ const removeTask = async (keyVal) => {
   }
 };
 
-export { storeTask, getTasks, toggleDoneStatus, removeTask };
+/**
+ * Updates existing task based on user input.
+ * @param {*} keyVal
+ * @param {*} task
+ */
+const editTask = async (keyVal, task) => {
+  try {
+    getTasks().then((arr) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].key === keyVal && arr !== undefined) {
+          arr[i].task = task;
+          AsyncStorage.setItem('tasks', JSON.stringify(arr)).then(
+            null,
+            (error) => {
+              console.log(error);
+            }
+          );
+          break;
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export { storeTask, getTasks, toggleDoneStatus, removeTask, editTask };

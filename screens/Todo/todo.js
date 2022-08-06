@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text } from '@ui-kitten/components';
-import Task from './task';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Task from './task';
+import AddTaskModal from './Modals/add_task_modal';
 import { getTasks } from '../../utils/toDoListStorage';
-import AddTaskModal from './add_task_modal';
 import { default as theme } from '../../custom-theme.json';
 
 const Todo = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isAddModalVisible, setAddModalVisible] = useState(false);
 
   const [tasks, setTasks] = useState([]);
 
@@ -22,7 +22,10 @@ const Todo = () => {
 
   return (
     <View style={styles.container}>
-      <AddTaskModal visible={isModalVisible} setVisible={setModalVisible} />
+      <AddTaskModal
+        visible={isAddModalVisible}
+        setVisible={setAddModalVisible}
+      />
       <ScrollView style={styles.tasksWrapper}>
         {tasks !== undefined && tasks.length > 0 ? (
           tasks.map((currTask) => (
@@ -43,7 +46,7 @@ const Todo = () => {
           name={'add-circle'}
           size={70}
           color={theme['color-primary-300']}
-          onPress={() => setModalVisible(true)}
+          onPress={() => setAddModalVisible(true)}
         />
       </TouchableOpacity>
     </View>
