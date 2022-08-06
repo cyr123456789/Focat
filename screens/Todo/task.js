@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import EditTaskModal from './Modals/edit_task_modal';
 import DeleteTaskModal from './Modals/delete_task_modal';
 import { toggleDoneStatus } from '../../utils/toDoListStorage';
-import { default as theme } from '../../custom-theme.json';
+import { default as theme } from '../../assets/custom-theme.json';
 
 const Task = (props) => {
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);

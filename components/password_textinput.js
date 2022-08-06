@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
 import React from 'react';
-import { default as theme } from '../custom-theme.json';
+import { default as theme } from '../assets/custom-theme.json';
 
 export default function PasswordTextInput({
   password,

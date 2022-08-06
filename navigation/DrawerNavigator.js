@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../screens/Home/home';
-import Settings from '../screens/Settings/settings';
 import Leaderboard from '../screens/Leaderboard/leaderboard';
 import Todo from '../screens/Todo/todo';
 import Friends from '../screens/Friends/friends';
 import DrawerContent from './DrawerContent';
-import Profile from '../screens/Profile/profile';
-import { default as theme } from '../custom-theme.json';
+import { default as theme } from '../assets/custom-theme.json';
 import { getUsername } from '../utils/usernameStorage';
 
 const Drawer = createDrawerNavigator();

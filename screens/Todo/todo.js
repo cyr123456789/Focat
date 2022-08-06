@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Task from './task';
 import AddTaskModal from './Modals/add_task_modal';
 import { getTasks } from '../../utils/toDoListStorage';
-import { default as theme } from '../../custom-theme.json';
+import { default as theme } from '../../assets/custom-theme.json';
 
 const Todo = () => {
   const [isAddModalVisible, setAddModalVisible] = useState(false);

@@ -28,7 +28,6 @@ const Stopwatch = () => {
     <Layout style={styles.container}>
       <CatMotivationComponent inProgressStatus={inProgress} />
       <Layout
-        // style={styles.stopwatchWrapper}
         style={[
           styles.stopwatchWrapper,
           { justifyContent: inProgress ? 'flex-start' : 'center' },

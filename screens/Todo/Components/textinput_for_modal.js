@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput } from 'react-native';
 import React from 'react';
-import { default as theme } from '../../../custom-theme.json';
+import { default as theme } from '../../../assets/custom-theme.json';
 
 const ModalTextInput = (props) => {
   return (

@@ -21,7 +21,7 @@ import {
   orderBy,
   limit,
 } from 'firebase/firestore';
-import { default as theme } from '../../custom-theme.json';
+import { default as theme } from '../../assets/custom-theme.json';
 
 const Leaderboard = () => {
   const [data, setData] = useState([]);
