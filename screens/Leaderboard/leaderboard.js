@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Image } from 'react-native';
-import {
-  Layout,
-  Text,
-  Button,
-  List,
-  ListItem,
-  Card,
-} from '@ui-kitten/components';
+import { Layout, Text, Button, List, Card } from '@ui-kitten/components';
 import { auth, firestore } from '../../firebase';
 import {
   collection,
@@ -21,7 +14,7 @@ import {
   orderBy,
   limit,
 } from 'firebase/firestore';
-import { default as theme } from '../../custom-theme.json';
+import { default as theme } from '../../assets/custom-theme.json';
 
 const Leaderboard = () => {
   const [data, setData] = useState([]);

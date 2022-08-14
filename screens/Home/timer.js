@@ -16,14 +16,10 @@ import {
 import { auth, firestore } from '../../firebase';
 import CatMotivationComponent from './Components/cat_motivation';
 import SliderComponent from './Components/slider';
-// import ToggleComponent from './Components/toggle';
 import CatCash from './Components/cat_cash';
 
 const Timer = ({}) => {
   const [timer, setTimer] = useState(1500000);
-  // const [isGroup, setIsGroup] = useState(false);
-  // const [chatVisible, setChatVisible] = useState(false);
-  // const [addVisible, setAddVisible] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [refresh, setRefresh] = useState(1);
   const [catCash, setCatCash] = useState(0);
@@ -136,7 +132,6 @@ const Timer = ({}) => {
               setTimer(0);
               setInProgress(false);
             });
-            // completeAlert();
           } else {
             return timer - 1000;
           }
@@ -188,87 +183,9 @@ const Timer = ({}) => {
       ]
     );
 
-  // const toggleGroup = () => {
-  //   setIsGroup(!isGroup);
-  // };
-
-  // let toggle;
-  // if (inProgress) {
-  //   toggle = <></>;
-  // } else {
-  //   toggle = (
-  //     <Toggle checked={isGroup} onChange={toggleGroup} disabled={!isLoggedIn()}>
-  //       {isGroup ? 'Group' : 'Solo'}
-  //     </Toggle>
-  //   );
-  // }
-
-  // let slider;
-  // if (inProgress) {
-  //   slider = <></>;
-  // } else {
-  //   slider = (
-  //     <Slider
-  //       disabled={inProgress}
-  //       value={timer}
-  //       minimumValue={1000}
-  //       maximumValue={3600000}
-  //       step={1000}
-  //       onValueChange={(value) => setTimer(value)}
-  //       containerStyle={styles.slider}
-  //    />
-  //   );
-  // }
-
-  // let button;
-  // if (isGroup && !inProgress) {
-  //   button = (
-  //     <ButtonGroup>
-  //       <Button style={styles.button} onPress={() => setChatVisible(true)}>
-  //         Chat
-  //       </Button>
-  //       <StartStopButton
-  //         progress={inProgress}
-  //         style={styles.button}
-  //         start={start}
-  //         stop={stop}
-  //       />
-  //       <Button style={styles.button} onPress={() => setAddVisible(true)}>
-  //         Add
-  //       </Button>
-  //     </ButtonGroup>
-  //   );
-  // } else {
-  //   button = (
-  //     <StartStopButton
-  //       progress={inProgress}
-  //       style={styles.button}
-  //       start={start}
-  //       stop={stop}
-  //     />
-  //   );
-  // }
-
   return (
     <Layout style={styles.container}>
       <CatCash catCash={catCash} />
-      {/* <Modal visible={chatVisible}>
-        <Card>
-          <Text>chat here</Text>
-          <Button onPress={() => setChatVisible(false)}>Close</Button>
-        </Card>
-      </Modal> */}
-      {/* <Modal visible={addVisible}>
-        <Card>
-          <Text>Friend list here</Text>
-          <Button onPress={() => setAddVisible(false)}>Close</Button>
-        </Card>
-      </Modal> */}
-      {/* <ToggleComponent
-        inProgressStatus={inProgress}
-        isGroup={isGroup}
-        toggleGroup={toggleGroup}
-      /> */}
       <CatMotivationComponent inProgressStatus={inProgress} />
       <Layout
         style={[

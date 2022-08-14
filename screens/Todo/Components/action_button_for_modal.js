@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import { Button } from '@ui-kitten/components';
 
-import { default as theme } from '../../../custom-theme.json';
+import { default as theme } from '../../../assets/custom-theme.json';
 
 const ActionButton = (props) => {
   return (

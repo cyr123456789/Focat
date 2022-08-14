@@ -8,7 +8,7 @@ import { Button, Input, Layout, Icon } from '@ui-kitten/components';
 import EmailTextInput from '../../components/email_textinput';
 import PasswordTextInput from '../../components/password_textinput';
 import { storeUsername } from '../../utils/usernameStorage';
-import { default as theme } from '../../custom-theme.json';
+import { default as theme } from '../../assets/custom-theme.json';
 
 const Signup = () => {
   const [username, setUsername] = useState('');

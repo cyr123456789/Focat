@@ -2,7 +2,7 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Input, Icon } from '@ui-kitten/components';
 import React from 'react';
 import fetchSearchResults from './fetch_search_results';
-import { default as theme } from '../../../custom-theme.json';
+import { default as theme } from '../../../assets/custom-theme.json';
 
 const SearchInput = ({ userInput, setUserInput, setSearchResults }) => {
   const searchButton = (props) => (
