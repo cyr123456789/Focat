@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Image } from 'react-native';
-import {
-  Layout,
-  Text,
-  Button,
-  List,
-  ListItem,
-  Card,
-} from '@ui-kitten/components';
+import { Layout, Text, Button, List, Card } from '@ui-kitten/components';
 import { auth, firestore } from '../../firebase';
 import {
   collection,
