@@ -2,7 +2,7 @@
 
 ## Links to the project materials
 
-[APK file](https://expo.dev/@venuslimm/Focat), [Poster](https://drive.google.com/file/d/1yqlfmytt7FJdj57hl4IUf7sWteaJEKGw/view), [Video](https://drive.google.com/file/d/1_b5Gn_Acp0OYRCcJlNI6h3xiLA0Nw8yl/view?usp=sharing)
+[APK file](https://expo.dev/@venuslimm/Focat), [Poster](https://drive.google.com/file/d/1uYY69HNg32Rwsuh_0x3vCRLQsaBHvCf_/view?usp=sharing), [Video](https://drive.google.com/file/d/1kv3aO368pHnv2635xJU44ZpLXzEiBnJE/view?usp=sharing)
 
 ## Motivation
 
