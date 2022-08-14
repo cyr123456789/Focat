@@ -253,6 +253,7 @@ focused. We utilised this hook to update the page accordingly.
 
 ![alt text](../assets/implementation/todo_list.png?raw=true)
 ![alt text](../assets/implementation/todo_list_add_task.png?raw=true)
+![alt text](../assets/implementation/todo_list_edit_task.png?raw=true)
 ![alt text](../assets/implementation/todo_list_task_completed.png?raw=true)
 
 This page shows a list of tasks that the user has added to their todo list. Users can strike off the tasks when
